@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Xml.Serialization;
 
 namespace UpdateManager
 {
@@ -25,20 +26,14 @@ namespace UpdateManager
         #endregion
 
         #region Assigned_Variables
-
-        private Version _version;
-
+        [XmlIgnore]
+        private Version _applicationVersion;
         #endregion
 
 
-        public void SetVersion(Version version)
+        internal void SetApplicationVersion(Version version)
         {
-            if (_version == null)
-            {
-                throw new NullReferenceException("Version cannot be null!");
-            }
-
-            _version = version;
+            _applicationVersion = version;
         }
 
 
@@ -48,9 +43,8 @@ namespace UpdateManager
         /// <returns>A boolean to represent whether there is an update available or not</returns>
         internal bool CheckForUpdate()
         {
-            if (_version == null) throw new NullReferenceException("Version cannot be null!");
             Version update = new Version(MajorVersion, MinorVersion, BuildVersion, RevisionVersion);
-            int result = update.CompareTo(_version);
+            int result = update.CompareTo(_applicationVersion);
             return result > 0;
         }
 
@@ -58,7 +52,7 @@ namespace UpdateManager
         /// Get the formatted Update version number
         /// </summary>
         /// <returns>The formatted update version number</returns>
-        public string GetUpdateVersion()
+        internal string GetUpdateVersion()
         {
             return MajorVersion + "." + MinorVersion + "." + BuildVersion + "." + RevisionVersion;
         }

@@ -15,6 +15,7 @@ namespace UpdateManager
         #region Variables
         private readonly string _updateUrl;
         private Update _update;
+        private readonly Version _applicationVersion;
         private readonly string _titleText;
         #endregion
 
@@ -29,8 +30,9 @@ namespace UpdateManager
             _updateUrl = updateUrl;
 
             _update = new Update();
-            _update.SetVersion(version);
+            _applicationVersion = new Version(version.Major, version.Minor, version.Build, version.Revision);
 
+            _update.SetApplicationVersion(_applicationVersion);
             _titleText = titleText;
         }
 
@@ -54,6 +56,7 @@ namespace UpdateManager
                     writer.Flush();
                     stream.Position = 0;
                     _update = (Update)serializer.Deserialize(stream);
+                    _update.SetApplicationVersion(_applicationVersion);
                     writer.Dispose();
                 }
 
