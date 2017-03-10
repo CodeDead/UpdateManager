@@ -15,7 +15,7 @@ namespace UpdateManager
         #region Variables
         private readonly string _updateUrl;
         private Update _update;
-        private string _titleText;
+        private readonly string _titleText;
         #endregion
 
         /// <summary>
