@@ -27,7 +27,10 @@ namespace UpdateManager
         public UpdateManager(Version version, string updateUrl, string titleText)
         {
             _updateUrl = updateUrl;
-            _update = new Update(version);
+
+            _update = new Update();
+            _update.SetVersion(version);
+
             _titleText = titleText;
         }
 

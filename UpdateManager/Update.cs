@@ -26,17 +26,21 @@ namespace UpdateManager
 
         #region Assigned_Variables
 
-        private readonly Version _version;
+        private Version _version;
 
         #endregion
 
-        /// <summary>
-        /// Generate a new Update object
-        /// </summary>
-        public Update(Version version)
+
+        public void SetVersion(Version version)
         {
+            if (_version == null)
+            {
+                throw new NullReferenceException("Version cannot be null!");
+            }
+
             _version = version;
         }
+
 
         /// <summary>
         /// Check whether or not there is an update available
@@ -44,6 +48,7 @@ namespace UpdateManager
         /// <returns>A boolean to represent whether there is an update available or not</returns>
         internal bool CheckForUpdate()
         {
+            if (_version == null) throw new NullReferenceException("Version cannot be null!");
             Version update = new Version(MajorVersion, MinorVersion, BuildVersion, RevisionVersion);
             int result = update.CompareTo(_version);
             return result > 0;
