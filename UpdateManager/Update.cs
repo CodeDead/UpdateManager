@@ -30,7 +30,10 @@ namespace UpdateManager
         private Version _applicationVersion;
         #endregion
 
-
+        /// <summary>
+        /// Set the version of the Application
+        /// </summary>
+        /// <param name="version">The Version of the application</param>
         internal void SetApplicationVersion(Version version)
         {
             _applicationVersion = version;

@@ -11,7 +11,6 @@ namespace UpdateManager
     /// </summary>
     public class UpdateManager
     {
-
         #region Variables
         private readonly string _updateUrl;
         private Update _update;
