@@ -12,11 +12,7 @@
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <TextBlock x:Name="TxtInfo" Grid.Row="0" Margin="3" TextWrapping="WrapWithOverflow">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec adipiscing
-            nulla quis libero egestas lobortis. Duis blandit imperdiet ornare. Nulla
-            ac arcu ut purus placerat congue. Integer pretium fermentum gravida.
-        </TextBlock>
+        <TextBlock x:Name="TxtInfo" Grid.Row="0" Margin="3" TextWrapping="WrapWithOverflow" />
 
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
