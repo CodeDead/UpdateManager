@@ -22,5 +22,18 @@ catch (Exception ex)
 }
 ```
 
+# Update XML example
+```XML
+<?xml version="1.0"?>
+<Update xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <MajorVersion>1</MajorVersion>
+  <MinorVersion>0</MinorVersion>
+  <BuildVersion>0</BuildVersion>
+  <RevisionVersion>0</RevisionVersion>
+  <UpdateUrl>https://example.com/update.exe</UpdateUrl>
+  <InfoUrl>https://codedead.com/</InfoUrl>
+</Update>
+```
+
 # License
 This library is licensed under the GPLv3.
