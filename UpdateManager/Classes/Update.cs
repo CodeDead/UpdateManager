@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Xml.Serialization;
 
-namespace UpdateManager
+namespace UpdateManager.Classes
 {
     /// <summary>
     /// Check whether a new version is available or not.
@@ -9,23 +9,36 @@ namespace UpdateManager
     public class Update
     {
         #region XML_Update
-        // ReSharper disable once UnassignedField.Global
-        // ReSharper disable once MemberCanBePrivate.Global
+        /// <summary>
+        /// The major version of the most current update
+        /// </summary>
         public int MajorVersion;
-        // ReSharper disable once UnassignedField.Global
-        // ReSharper disable once MemberCanBePrivate.Global
+        /// <summary>
+        /// The minor version of the most current update
+        /// </summary>
         public int MinorVersion;
-        // ReSharper disable once UnassignedField.Global
-        // ReSharper disable once MemberCanBePrivate.Global
+        /// <summary>
+        /// The build version of the most current update
+        /// </summary>
         public int BuildVersion;
-        // ReSharper disable once UnassignedField.Global
-        // ReSharper disable once MemberCanBePrivate.Global
+        /// <summary>
+        /// The revision version of the most current update
+        /// </summary>
         public int RevisionVersion;
-        // ReSharper disable once UnassignedField.Global
+        /// <summary>
+        /// The update URL of the most current update
+        /// </summary>
         public string UpdateUrl;
+        /// <summary>
+        /// The information URL of the most current update
+        /// </summary>
+        public string InfoUrl;
         #endregion
 
         #region Assigned_Variables
+        /// <summary>
+        /// The current application version
+        /// </summary>
         [XmlIgnore]
         private Version _applicationVersion;
         #endregion
