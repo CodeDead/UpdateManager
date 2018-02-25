@@ -11,46 +11,46 @@ namespace UpdateManager.Windows
     {
         #region Variables
         /// <summary>
-        /// The content for the Information label
+        /// The content for the Information TextBlock
         /// </summary>
-        private string _informationLabelContent;
+        private string _informationTextBlockContent;
         /// <summary>
-        /// The content for the Information button
+        /// The content for the Information Button
         /// </summary>
         private string _informationButtonContent;
         /// <summary>
-        /// The content for the Cancel button
+        /// The content for the Cancel Button
         /// </summary>
         private string _cancelButtonContent;
         /// <summary>
-        /// The content for the Download button
+        /// The content for the Download Button
         /// </summary>
         private string _downloadButtonContent;
         #endregion
 
         #region Properties
         /// <summary>
-        /// The URL that should be opened when the Information button is pressed
+        /// The URL that should be opened when the Information Button is pressed
         /// </summary>
         public string InformationUrl { get; set; }
         /// <summary>
-        /// The URL that should be opened when the Download button is pressed
+        /// The URL that should be opened when the Download Button is pressed
         /// </summary>
         public string DownloadUrl { get; set; }
         /// <summary>
-        /// The content for the Information label
+        /// The content for the Information TextBlock
         /// </summary>
-        public string InformationLabelContent
+        public string InformationTextblockContent
         {
-            get => _informationLabelContent;
+            get => _informationTextBlockContent;
             set
             {
-                _informationLabelContent = value;
-                LblInfo.Content = value;
+                _informationTextBlockContent = value;
+                TxtInfo.Text = value;
             }
         }
         /// <summary>
-        /// The content for the Information button
+        /// The content for the Information Button
         /// </summary>
         public string InformationButtonContent
         {
@@ -62,7 +62,7 @@ namespace UpdateManager.Windows
             }
         }
         /// <summary>
-        /// The content for the Cancel button
+        /// The content for the Cancel Button
         /// </summary>
         public string CancelButtonContent
         {
@@ -74,7 +74,7 @@ namespace UpdateManager.Windows
             }
         }
         /// <summary>
-        /// The content for the Download button
+        /// The content for the Download Button
         /// </summary>
         public string DownloadButtonContent
         {
@@ -97,7 +97,7 @@ namespace UpdateManager.Windows
         }
 
         /// <summary>
-        /// Method that is called when the Information button is pressed
+        /// Method that is called when the Information Button is pressed
         /// </summary>
         /// <param name="sender">The object that called this method</param>
         /// <param name="e">The RoutedEventArgs</param>
@@ -114,7 +114,7 @@ namespace UpdateManager.Windows
         }
 
         /// <summary>
-        /// Method that is called when the Cancel button is pressed
+        /// Method that is called when the Cancel Button is pressed
         /// </summary>
         /// <param name="sender">The object that called this method</param>
         /// <param name="e">The RoutedEventArgs</param>
@@ -124,7 +124,7 @@ namespace UpdateManager.Windows
         }
 
         /// <summary>
-        /// Method that is called when the Download button is pressed
+        /// Method that is called when the Download Button is pressed
         /// </summary>
         /// <param name="sender">The object that called this method</param>
         /// <param name="e">The RoutedEventArgs</param>

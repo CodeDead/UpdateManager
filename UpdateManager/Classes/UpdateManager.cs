@@ -30,19 +30,19 @@ namespace UpdateManager.Classes
         /// </summary>
         private readonly string _titleText;
         /// <summary>
-        /// The content of the Information label
+        /// The content of the Information TextBlock
         /// </summary>
-        private readonly string _informationLabelContent;
+        private readonly string _informationTextBlockContent;
         /// <summary>
-        /// The content of the Information button
+        /// The content of the Information Button
         /// </summary>
         private readonly string _informationButtonContent;
         /// <summary>
-        /// The content of the Cancel button
+        /// The content of the Cancel Button
         /// </summary>
         private readonly string _cancelButtonContent;
         /// <summary>
-        /// The content of the Download button
+        /// The content of the Download Button
         /// </summary>
         private readonly string _downloadButtonContent;
         /// <summary>
@@ -57,12 +57,12 @@ namespace UpdateManager.Classes
         /// <param name="version">Your application version</param>
         /// <param name="updateUrl">The URL where your XML update file is located</param>
         /// <param name="titleText">Your application title text</param>
-        /// <param name="informationLabelText">The content that should be displayed in the Information label</param>
-        /// <param name="informationButtonText">The content that should be displayed in the Information button</param>
-        /// <param name="cancelButtonText">The content that should be displayed in the Cancel button</param>
-        /// <param name="downloadButtonText">The content that should be displayed in the Download button</param>
+        /// <param name="informationTextBlockText">The content that should be displayed in the Information TextBlock</param>
+        /// <param name="informationButtonText">The content that should be displayed in the Information Button</param>
+        /// <param name="cancelButtonText">The content that should be displayed in the Cancel Button</param>
+        /// <param name="downloadButtonText">The content that should be displayed in the Download Button</param>
         /// <param name="noNewVersion">Text that should be displayed when no updates are available</param>
-        public UpdateManager(Version version, string updateUrl, string titleText, string informationLabelText, string informationButtonText, string cancelButtonText, string downloadButtonText, string noNewVersion)
+        public UpdateManager(Version version, string updateUrl, string titleText, string informationTextBlockText, string informationButtonText, string cancelButtonText, string downloadButtonText, string noNewVersion)
         {
             _updateUrl = updateUrl;
 
@@ -73,7 +73,7 @@ namespace UpdateManager.Classes
             _titleText = titleText;
             _noNewVersionText = noNewVersion;
 
-            _informationLabelContent = informationLabelText;
+            _informationTextBlockContent = informationTextBlockText;
             _informationButtonContent = informationButtonText;
             _cancelButtonContent = cancelButtonText;
             _downloadButtonContent = downloadButtonText;
@@ -108,7 +108,7 @@ namespace UpdateManager.Classes
                     UpdateWindow window = new UpdateWindow
                     {
                         Title = _titleText,
-                        InformationLabelContent = _informationLabelContent,
+                        InformationTextblockContent = _informationTextBlockContent,
                         InformationButtonContent = _informationButtonContent,
                         CancelButtonContent = _cancelButtonContent,
                         DownloadButtonContent = _downloadButtonContent,
