@@ -7,7 +7,7 @@ In order to use it, you require an XML file on a remote or local server that rep
 
 Create a new UpdateManager object like this:
 ```C#
-UpdateManager.Classes.UpdateManager updateManager = new UpdateManager.Classes.UpdateManager(Assembly.GetExecutingAssembly().GetName().Version, "https://example.com/update.xml", "Application title", "A new version is now available.\n\nClick the download button to immediately download the update!", "Information", "Cancel", "Download", "No new version is currently available.");
+UpdateManager.Classes.UpdateManager updateManager = new UpdateManager.Classes.UpdateManager(Assembly.GetExecutingAssembly().GetName().Version, "https://example.com/update.xml", "Application title", "Information", "Cancel", "Download", "No new version is currently available.");
 ```
 
 Check for updates like this:
