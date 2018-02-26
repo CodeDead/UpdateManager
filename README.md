@@ -32,6 +32,7 @@ catch (Exception ex)
   <RevisionVersion>0</RevisionVersion>
   <UpdateUrl>https://example.com/update.exe</UpdateUrl>
   <InfoUrl>https://codedead.com/</InfoUrl>
+  <UpdateInfo>A new version is now available.Please click the download button to download version 1.0.0.0</UpdateInfo>
 </Update>
 ```
 

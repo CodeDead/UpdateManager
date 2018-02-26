@@ -30,10 +30,6 @@ namespace UpdateManager.Classes
         /// </summary>
         private readonly string _titleText;
         /// <summary>
-        /// The content of the Information TextBlock
-        /// </summary>
-        private readonly string _informationTextBlockContent;
-        /// <summary>
         /// The content of the Information Button
         /// </summary>
         private readonly string _informationButtonContent;
@@ -57,12 +53,11 @@ namespace UpdateManager.Classes
         /// <param name="version">Your application version</param>
         /// <param name="updateUrl">The URL where your XML update file is located</param>
         /// <param name="titleText">Your application title text</param>
-        /// <param name="informationTextBlockText">The content that should be displayed in the Information TextBlock</param>
         /// <param name="informationButtonText">The content that should be displayed in the Information Button</param>
         /// <param name="cancelButtonText">The content that should be displayed in the Cancel Button</param>
         /// <param name="downloadButtonText">The content that should be displayed in the Download Button</param>
         /// <param name="noNewVersion">Text that should be displayed when no updates are available</param>
-        public UpdateManager(Version version, string updateUrl, string titleText, string informationTextBlockText, string informationButtonText, string cancelButtonText, string downloadButtonText, string noNewVersion)
+        public UpdateManager(Version version, string updateUrl, string titleText, string informationButtonText, string cancelButtonText, string downloadButtonText, string noNewVersion)
         {
             _updateUrl = updateUrl;
 
@@ -73,7 +68,6 @@ namespace UpdateManager.Classes
             _titleText = titleText;
             _noNewVersionText = noNewVersion;
 
-            _informationTextBlockContent = informationTextBlockText;
             _informationButtonContent = informationButtonText;
             _cancelButtonContent = cancelButtonText;
             _downloadButtonContent = downloadButtonText;
@@ -108,7 +102,7 @@ namespace UpdateManager.Classes
                     UpdateWindow window = new UpdateWindow
                     {
                         Title = _titleText,
-                        InformationTextblockContent = _informationTextBlockContent,
+                        InformationTextblockContent = _update.UpdateInfo,
                         InformationButtonContent = _informationButtonContent,
                         CancelButtonContent = _cancelButtonContent,
                         DownloadButtonContent = _downloadButtonContent,

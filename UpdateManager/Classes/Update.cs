@@ -33,6 +33,10 @@ namespace UpdateManager.Classes
         /// The information URL of the most current update
         /// </summary>
         public string InfoUrl;
+        /// <summary>
+        /// The information in plain text regarding this update
+        /// </summary>
+        public string UpdateInfo;
         #endregion
 
         #region Assigned_Variables
