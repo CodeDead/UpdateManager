@@ -133,6 +133,7 @@ namespace UpdateManager.Windows
             try
             {
                 System.Diagnostics.Process.Start(DownloadUrl);
+                Close();
             }
             catch (Exception ex)
             {
