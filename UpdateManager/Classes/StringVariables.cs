@@ -31,5 +31,18 @@
         /// </summary>
         public string UpdateNowText { get; set; }
         #endregion
+
+        /// <summary>
+        /// Initialize a new StringVariables object
+        /// </summary>
+        public StringVariables()
+        {
+            TitleText = "";
+            InformationButtonText = "";
+            CancelButtonText = "";
+            DownloadButtonText = "";
+            NoNewVersionText = "";
+            UpdateNowText = "";
+        }
     }
 }
