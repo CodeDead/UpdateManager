@@ -4,7 +4,7 @@ using System.Xml.Serialization;
 namespace UpdateManager.Classes
 {
     /// <summary>
-    /// Check whether a new version is available or not.
+    /// Check whether a new version is available or not
     /// </summary>
     public class Update
     {
@@ -56,7 +56,6 @@ namespace UpdateManager.Classes
             _applicationVersion = version;
         }
 
-
         /// <summary>
         /// Check whether or not there is an update available
         /// </summary>
@@ -66,15 +65,6 @@ namespace UpdateManager.Classes
             Version update = new Version(MajorVersion, MinorVersion, BuildVersion, RevisionVersion);
             int result = update.CompareTo(_applicationVersion);
             return result > 0;
-        }
-
-        /// <summary>
-        /// Get the formatted Update version number
-        /// </summary>
-        /// <returns>The formatted update version number</returns>
-        internal string GetUpdateVersion()
-        {
-            return MajorVersion + "." + MinorVersion + "." + BuildVersion + "." + RevisionVersion;
         }
     }
 }

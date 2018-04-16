@@ -26,25 +26,9 @@ namespace UpdateManager.Classes
         /// </summary>
         private readonly Version _applicationVersion;
         /// <summary>
-        /// The title of the application
+        /// The string variables that can be used to display information to the user
         /// </summary>
-        private readonly string _titleText;
-        /// <summary>
-        /// The content of the Information Button
-        /// </summary>
-        private readonly string _informationButtonContent;
-        /// <summary>
-        /// The content of the Cancel Button
-        /// </summary>
-        private readonly string _cancelButtonContent;
-        /// <summary>
-        /// The content of the Download Button
-        /// </summary>
-        private readonly string _downloadButtonContent;
-        /// <summary>
-        /// The text that should be displayed if no updates are available
-        /// </summary>
-        private readonly string _noNewVersionText;
+        private readonly StringVariables _stringVariables;
         #endregion
 
         /// <summary>
@@ -52,12 +36,8 @@ namespace UpdateManager.Classes
         /// </summary>
         /// <param name="version">Your application version</param>
         /// <param name="updateUrl">The URL where your XML update file is located</param>
-        /// <param name="titleText">Your application title text</param>
-        /// <param name="informationButtonText">The content that should be displayed in the Information Button</param>
-        /// <param name="cancelButtonText">The content that should be displayed in the Cancel Button</param>
-        /// <param name="downloadButtonText">The content that should be displayed in the Download Button</param>
-        /// <param name="noNewVersion">Text that should be displayed when no updates are available</param>
-        public UpdateManager(Version version, string updateUrl, string titleText, string informationButtonText, string cancelButtonText, string downloadButtonText, string noNewVersion)
+        /// <param name="stringVariables">StringVariables object containing strings that can be used to display information to the user</param>
+        public UpdateManager(Version version, string updateUrl, StringVariables stringVariables)
         {
             _updateUrl = updateUrl;
 
@@ -65,12 +45,7 @@ namespace UpdateManager.Classes
             _applicationVersion = new Version(version.Major, version.Minor, version.Build, version.Revision);
 
             _update.SetApplicationVersion(_applicationVersion);
-            _titleText = titleText;
-            _noNewVersionText = noNewVersion;
-
-            _informationButtonContent = informationButtonText;
-            _cancelButtonContent = cancelButtonText;
-            _downloadButtonContent = downloadButtonText;
+            _stringVariables = stringVariables;
         }
 
         /// <summary>
@@ -101,11 +76,11 @@ namespace UpdateManager.Classes
                 {
                     UpdateWindow window = new UpdateWindow
                     {
-                        Title = _titleText,
+                        Title = _stringVariables.TitleText,
                         InformationTextblockContent = _update.UpdateInfo,
-                        InformationButtonContent = _informationButtonContent,
-                        CancelButtonContent = _cancelButtonContent,
-                        DownloadButtonContent = _downloadButtonContent,
+                        InformationButtonContent = _stringVariables.InformationButtonText,
+                        CancelButtonContent = _stringVariables.CancelButtonText,
+                        DownloadButtonContent = _stringVariables.DownloadButtonText,
                         DownloadUrl = _update.UpdateUrl,
                         InformationUrl = _update.InfoUrl
                     };
@@ -115,7 +90,7 @@ namespace UpdateManager.Classes
                 {
                     if (showNoUpdates)
                     {
-                        MessageBox.Show(_noNewVersionText, _titleText, MessageBoxButton.OK, MessageBoxImage.Information);
+                        MessageBox.Show(_stringVariables.NoNewVersionText, _stringVariables.TitleText, MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                 }
             }
@@ -123,7 +98,7 @@ namespace UpdateManager.Classes
             {
                 if (showErrors)
                 {
-                    MessageBox.Show(ex.Message, _titleText, MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(ex.Message, _stringVariables.TitleText, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
