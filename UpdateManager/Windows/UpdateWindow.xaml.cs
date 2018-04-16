@@ -184,8 +184,15 @@ namespace UpdateManager.Windows
 
             if (MessageBox.Show(UpdateNowText, Title, MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
-                System.Diagnostics.Process.Start(_downloadLocation);
-                Application.Current.Shutdown();
+                try
+                {
+                    System.Diagnostics.Process.Start(_downloadLocation);
+                    Application.Current.Shutdown();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, Title, MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
             else
             {
