@@ -7,7 +7,16 @@ In order to use it, you require an XML file on a remote or local server that rep
 
 Create a new UpdateManager object like this:
 ```C#
-UpdateManager.Classes.UpdateManager updateManager = new UpdateManager.Classes.UpdateManager(Assembly.GetExecutingAssembly().GetName().Version, "https://example.com/update.xml", "Application title", "Information", "Cancel", "Download", "No new version is currently available.");
+StringVariables stringVariables = new StringVariables
+{
+	CancelButtonText = "Cancel",
+	DownloadButtonText = "Download",
+	InformationButtonText = "Information",
+	NoNewVersionText = "You are running the latest version!",
+	TitleText = "Your application title",
+	UpdateNowText = "Would you like to update the application now?"
+};
+UpdateManager.Classes.UpdateManager updateManager = new UpdateManager.Classes.UpdateManager(Assembly.GetExecutingAssembly().GetName().Version, "https://yoururl/update.xml", stringVariables);
 ```
 
 Check for updates like this:
