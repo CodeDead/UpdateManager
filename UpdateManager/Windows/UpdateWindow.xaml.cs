@@ -96,7 +96,6 @@ namespace UpdateManager.Windows
         /// The text that should be displayed to the user to ask whether or not the update should be executed or not after the download has completed
         /// </summary>
         public string UpdateNowText { get; set; }
-
         #endregion
 
         /// <inheritdoc />

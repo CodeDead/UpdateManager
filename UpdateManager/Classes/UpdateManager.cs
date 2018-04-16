@@ -82,7 +82,8 @@ namespace UpdateManager.Classes
                         CancelButtonContent = _stringVariables.CancelButtonText,
                         DownloadButtonContent = _stringVariables.DownloadButtonText,
                         DownloadUrl = _update.UpdateUrl,
-                        InformationUrl = _update.InfoUrl
+                        InformationUrl = _update.InfoUrl,
+                        UpdateNowText = _stringVariables.UpdateNowText
                     };
                     window.ShowDialog();
                 }
