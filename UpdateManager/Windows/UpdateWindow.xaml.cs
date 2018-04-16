@@ -33,6 +33,10 @@ namespace UpdateManager.Windows
         /// The location on the drive where the file was downloaded to
         /// </summary>
         private string _downloadLocation;
+        /// <summary>
+        /// The WebClient object that will download the update
+        /// </summary>
+        private WebClient _downloadClient;
         #endregion
 
         #region Properties
@@ -131,6 +135,7 @@ namespace UpdateManager.Windows
         /// <param name="e">The RoutedEventArgs</param>
         private void BtnCancel_OnClick(object sender, RoutedEventArgs e)
         {
+            _downloadClient?.CancelAsync();
             Close();
         }
 
@@ -149,19 +154,19 @@ namespace UpdateManager.Windows
                 sfd.Filter = filter;
 
                 if (sfd.ShowDialog() != true) return;
-                WebClient wc = new WebClient();
+                _downloadClient = new WebClient();
 
-                wc.DownloadProgressChanged += (s, ev) =>
+                _downloadClient.DownloadProgressChanged += (s, ev) =>
                 {
                     PgbDownloadStatus.Value = ev.ProgressPercentage;
                 };
-                wc.DownloadFileCompleted += WebClient_OnDownloadFileCompleted;
+                _downloadClient.DownloadFileCompleted += WebClient_OnDownloadFileCompleted;
 
                 PgbDownloadStatus.Visibility = Visibility.Visible;
                 TxtInfo.Visibility = Visibility.Collapsed;
                 _downloadLocation = sfd.FileName;
 
-                wc.DownloadFileAsync(new Uri(DownloadUrl), sfd.FileName);
+                _downloadClient.DownloadFileAsync(new Uri(DownloadUrl), sfd.FileName);
                 BtnDownload.IsEnabled = false;
             }
             catch (Exception ex)
@@ -180,6 +185,13 @@ namespace UpdateManager.Windows
         /// <param name="e">The AsyncCompletedEventArgs</param>
         private void WebClient_OnDownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
         {
+            if (e.Cancelled)
+            {
+                _downloadClient.DownloadFileCompleted -= WebClient_OnDownloadFileCompleted;
+                _downloadClient.Dispose();
+                return;
+            }
+
             PgbDownloadStatus.Visibility = Visibility.Collapsed;
             TxtInfo.Visibility = Visibility.Visible;
             BtnDownload.IsEnabled = true;
