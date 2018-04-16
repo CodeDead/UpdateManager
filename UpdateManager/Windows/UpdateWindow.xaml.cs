@@ -163,11 +163,13 @@ namespace UpdateManager.Windows
                 _downloadLocation = sfd.FileName;
 
                 wc.DownloadFileAsync(new Uri(DownloadUrl), sfd.FileName);
+                BtnDownload.IsEnabled = false;
             }
             catch (Exception ex)
             {
                 PgbDownloadStatus.Visibility = Visibility.Collapsed;
                 TxtInfo.Visibility = Visibility.Visible;
+                BtnDownload.IsEnabled = true;
                 MessageBox.Show(ex.Message, Title, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
@@ -181,6 +183,7 @@ namespace UpdateManager.Windows
         {
             PgbDownloadStatus.Visibility = Visibility.Collapsed;
             TxtInfo.Visibility = Visibility.Visible;
+            BtnDownload.IsEnabled = true;
 
             if (MessageBox.Show(UpdateNowText, Title, MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
