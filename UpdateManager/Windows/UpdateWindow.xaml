@@ -5,8 +5,9 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     mc:Ignorable="d" UseLayoutRounding="True"
-    SizeToContent="WidthAndHeight"
-    Width="Auto" Height="Auto" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
+    SizeToContent="WidthAndHeight" MinWidth="300"
+    Width="Auto" Height="Auto"
+    WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
@@ -15,7 +16,7 @@
         </Grid.RowDefinitions>
 
         <TextBlock x:Name="TxtInfo" Grid.Row="0" Margin="3" TextWrapping="WrapWithOverflow" />
-        <ProgressBar Grid.Row="1" MinHeight="25" Margin="3" x:Name="PgbDownloadStatus" Visibility="Collapsed" />
+        <ProgressBar Grid.Row="1" MinHeight="25" MinWidth="250" Margin="3" x:Name="PgbDownloadStatus" Visibility="Collapsed" />
 
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
