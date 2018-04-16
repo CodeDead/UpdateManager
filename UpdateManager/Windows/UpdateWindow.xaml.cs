@@ -1,5 +1,8 @@
 ﻿using System;
+using System.ComponentModel;
+using System.Net;
 using System.Windows;
+using Microsoft.Win32;
 
 namespace UpdateManager.Windows
 {
@@ -26,6 +29,10 @@ namespace UpdateManager.Windows
         /// The content for the Download Button
         /// </summary>
         private string _downloadButtonContent;
+        /// <summary>
+        /// The location on the drive where the file was downloaded to
+        /// </summary>
+        private string _downloadLocation;
         #endregion
 
         #region Properties
@@ -85,6 +92,11 @@ namespace UpdateManager.Windows
                 BtnDownload.Content = value;
             }
         }
+        /// <summary>
+        /// The text that should be displayed to the user to ask whether or not the update should be executed or not after the download has completed
+        /// </summary>
+        public string UpdateNowText { get; set; }
+
         #endregion
 
         /// <inheritdoc />
@@ -132,12 +144,52 @@ namespace UpdateManager.Windows
         {
             try
             {
-                System.Diagnostics.Process.Start(DownloadUrl);
-                Close();
+                SaveFileDialog sfd = new SaveFileDialog();
+                string extension = DownloadUrl.Substring(DownloadUrl.Length - 3);
+                string filter = extension.ToUpper() + " file (*." + extension + ")|*." + extension;
+                sfd.Filter = filter;
+
+                if (sfd.ShowDialog() != true) return;
+                WebClient wc = new WebClient();
+
+                wc.DownloadProgressChanged += (s, ev) =>
+                {
+                    PgbDownloadStatus.Value = ev.ProgressPercentage;
+                };
+                wc.DownloadFileCompleted += WebClient_OnDownloadFileCompleted;
+
+                PgbDownloadStatus.Visibility = Visibility.Visible;
+                TxtInfo.Visibility = Visibility.Collapsed;
+                _downloadLocation = sfd.FileName;
+
+                wc.DownloadFileAsync(new Uri(DownloadUrl), sfd.FileName);
             }
             catch (Exception ex)
             {
+                PgbDownloadStatus.Visibility = Visibility.Collapsed;
+                TxtInfo.Visibility = Visibility.Visible;
                 MessageBox.Show(ex.Message, Title, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        /// <summary>
+        /// Method that is called when a file has been downloaded
+        /// </summary>
+        /// <param name="sender">The object that called this method</param>
+        /// <param name="e">The AsyncCompletedEventArgs</param>
+        private void WebClient_OnDownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
+        {
+            PgbDownloadStatus.Visibility = Visibility.Collapsed;
+            TxtInfo.Visibility = Visibility.Visible;
+
+            if (MessageBox.Show(UpdateNowText, Title, MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                System.Diagnostics.Process.Start(_downloadLocation);
+                Application.Current.Shutdown();
+            }
+            else
+            {
+                Close();
             }
         }
     }
