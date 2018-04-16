@@ -163,7 +163,6 @@ namespace UpdateManager.Windows
                 _downloadClient.DownloadFileCompleted += WebClient_OnDownloadFileCompleted;
 
                 PgbDownloadStatus.Visibility = Visibility.Visible;
-                TxtInfo.Visibility = Visibility.Collapsed;
                 _downloadLocation = sfd.FileName;
 
                 _downloadClient.DownloadFileAsync(new Uri(DownloadUrl), sfd.FileName);
@@ -172,7 +171,6 @@ namespace UpdateManager.Windows
             catch (Exception ex)
             {
                 PgbDownloadStatus.Visibility = Visibility.Collapsed;
-                TxtInfo.Visibility = Visibility.Visible;
                 BtnDownload.IsEnabled = true;
                 MessageBox.Show(ex.Message, Title, MessageBoxButton.OK, MessageBoxImage.Error);
             }
@@ -193,7 +191,6 @@ namespace UpdateManager.Windows
             }
 
             PgbDownloadStatus.Visibility = Visibility.Collapsed;
-            TxtInfo.Visibility = Visibility.Visible;
             BtnDownload.IsEnabled = true;
 
             if (MessageBox.Show(UpdateNowText, Title, MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
