@@ -28,7 +28,7 @@ namespace UpdateManager.Classes
         /// <summary>
         /// The string variables that can be used to display information to the user
         /// </summary>
-        private readonly StringVariables _stringVariables;
+        private StringVariables _stringVariables;
         #endregion
 
         /// <summary>
@@ -102,6 +102,15 @@ namespace UpdateManager.Classes
                     MessageBox.Show(ex.Message, _stringVariables.TitleText, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
+        }
+
+        /// <summary>
+        /// Change the StringVariables during runtime
+        /// </summary>
+        /// <param name="stringVariables"></param>
+        public void SetStringVariables(StringVariables stringVariables)
+        {
+            _stringVariables = stringVariables ?? throw new ArgumentNullException(nameof(stringVariables));
         }
     }
 }
