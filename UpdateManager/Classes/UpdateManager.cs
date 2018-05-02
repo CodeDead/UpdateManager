@@ -107,7 +107,7 @@ namespace UpdateManager.Classes
         /// <summary>
         /// Change the StringVariables during runtime
         /// </summary>
-        /// <param name="stringVariables"></param>
+        /// <param name="stringVariables">StringVariables object that contains all translation data</param>
         public void SetStringVariables(StringVariables stringVariables)
         {
             _stringVariables = stringVariables ?? throw new ArgumentNullException(nameof(stringVariables));
