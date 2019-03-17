@@ -45,7 +45,23 @@ namespace UpdateManager.Classes
             _applicationVersion = new Version(version.Major, version.Minor, version.Build, version.Revision);
 
             _update.SetApplicationVersion(_applicationVersion);
-            _stringVariables = stringVariables;
+            SetStringVariables(stringVariables);
+        }
+
+        /// <summary>
+        /// Initialize a new UpdateManager object
+        /// </summary>
+        /// <param name="version">Your application version</param>
+        /// <param name="updateUrl">The URL where your XML update file is located</param>
+        public UpdateManager(Version version, string updateUrl)
+        {
+            _updateUrl = updateUrl;
+
+            _update = new Update();
+            _applicationVersion = new Version(version.Major, version.Minor, version.Build, version.Revision);
+
+            _update.SetApplicationVersion(_applicationVersion);
+            SetStringVariables(new StringVariables());
         }
 
         /// <summary>
@@ -57,8 +73,7 @@ namespace UpdateManager.Classes
         {
             try
             {
-                WebClient wc = new WebClient();
-                string xml = await wc.DownloadStringTaskAsync(_updateUrl);
+                string xml = await new WebClient().DownloadStringTaskAsync(_updateUrl);
 
                 XmlSerializer serializer = new XmlSerializer(_update.GetType());
                 using (MemoryStream stream = new MemoryStream())

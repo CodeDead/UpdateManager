@@ -62,8 +62,8 @@ namespace UpdateManager.Classes
         /// <returns>A boolean to represent whether there is an update available or not</returns>
         internal bool CheckForUpdate()
         {
-            Version update = new Version(MajorVersion, MinorVersion, BuildVersion, RevisionVersion);
-            int result = update.CompareTo(_applicationVersion);
+            int result = new Version(MajorVersion, MinorVersion, BuildVersion, RevisionVersion)
+                .CompareTo(_applicationVersion);
             return result > 0;
         }
     }
