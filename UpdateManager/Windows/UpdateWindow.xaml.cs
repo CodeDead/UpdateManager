@@ -51,7 +51,7 @@ namespace UpdateManager.Windows
         /// <summary>
         /// The content for the Information TextBlock
         /// </summary>
-        public string InformationTextblockContent
+        public string InformationTextBlockContent
         {
             get => _informationTextBlockContent;
             set

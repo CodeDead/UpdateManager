@@ -5,6 +5,9 @@ This library can be used to check for application updates. It is designed for WP
 In order to use it, you require an XML file on a remote or local server that represents the Update class.
 # Usage
 
+UpdateManager is available as a [NuGet package](https://www.nuget.org/packages/CodeDead.UpdateManager/). You can find it here:  
+https://www.nuget.org/packages/CodeDead.UpdateManager/
+
 Create a new UpdateManager object like this:
 ```C#
 StringVariables stringVariables = new StringVariables

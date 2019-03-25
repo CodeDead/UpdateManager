@@ -92,7 +92,7 @@ namespace UpdateManager.Classes
                     UpdateWindow window = new UpdateWindow
                     {
                         Title = _stringVariables.TitleText,
-                        InformationTextblockContent = _update.UpdateInfo,
+                        InformationTextBlockContent = _update.UpdateInfo,
                         InformationButtonContent = _stringVariables.InformationButtonText,
                         CancelButtonContent = _stringVariables.CancelButtonText,
                         DownloadButtonContent = _stringVariables.DownloadButtonText,
