@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<package>
+    <metadata>
+        <id>CodeDead.UpdateManager</id>
+        <version>1.4.3</version>
+        <authors>CodeDead</authors>
+        <owners>CodeDead</owners>
+        <licenseUrl>https://codedead.com/Software/gpl.pdf</licenseUrl>
+        <projectUrl>https://github.com/CodeDead/UpdateManager</projectUrl>
+        <iconUrl>https://codedead.com/Software/codedead.png</iconUrl>
+        <requireLicenseAcceptance>true</requireLicenseAcceptance>
+        <description>
+            This library can be used to check for application updates. It is designed for WPF and Windows Forms applications. In order to use it, you require an XML file on a remote or local server that represents the Update class.
+        </description>
+        <releaseNotes>
+            * Minor fix for NuGet
+        </releaseNotes>
+        <copyright>Copyright © CodeDead 2019</copyright>
+        <tags>CodeDead UpdateManager Update Updater updates updating downloader</tags>
+    </metadata>
+    <files>
+        <file src="UpdateManager\bin\Release\UpdateManager.dll" target="lib\net472"/>
+    </files>
+</package>
