@@ -3,14 +3,14 @@ using System.IO;
 using System.Net;
 using System.Windows;
 using System.Xml.Serialization;
-using UpdateManager.Windows;
+using CodeDead.UpdateManager.Windows;
 
-namespace UpdateManager.Classes
+namespace CodeDead.UpdateManager.Classes
 {
     /// <summary>
     /// The UpdateManager has the ability to check for software updates
     /// </summary>
-    public class UpdateManager
+    public sealed class UpdateManager
     {
         #region Variables
         /// <summary>

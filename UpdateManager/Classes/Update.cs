@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Xml.Serialization;
 
-namespace UpdateManager.Classes
+namespace CodeDead.UpdateManager.Classes
 {
     /// <summary>
     /// Check whether a new version is available or not
     /// </summary>
-    public class Update
+    public sealed class Update
     {
         #region XML_Update
         /// <summary>

@@ -1,9 +1,9 @@
-﻿namespace UpdateManager.Classes
+﻿namespace CodeDead.UpdateManager.Classes
 {
     /// <summary>
     /// Class containing all available strings that can be displayed to the user
     /// </summary>
-    public class StringVariables
+    public sealed class StringVariables
     {
         #region Properties
         /// <summary>

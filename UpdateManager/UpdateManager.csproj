@@ -7,9 +7,9 @@
     <ProjectGuid>{4E804EAD-446A-47CC-B231-0A6255B867A3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>UpdateManager</RootNamespace>
-    <AssemblyName>UpdateManager</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <RootNamespace>CodeDead.UpdateManager</RootNamespace>
+    <AssemblyName>CodeDead.UpdateManager</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
