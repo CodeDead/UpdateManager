@@ -25,7 +25,7 @@ StringVariables stringVariables = new StringVariables
 	TitleText = "Your application title",
 	UpdateNowText = "Would you like to update the application now?"
 };
-UpdateManager updateManager = new UpdateManager(Assembly.GetExecutingAssembly().GetName().Version, "https://yoururl/update.xml", stringVariables);
+UpdateManager updateManager = new UpdateManager(Assembly.GetExecutingAssembly().GetName().Version, "https://yoururl/update.xml", stringVariables, DataType.Xml);
 ```
 
 Check for updates like this:
@@ -39,8 +39,30 @@ catch (Exception ex)
   MessageBox.Show(ex.Message, "Application title", MessageBoxButton.OK, MessageBoxImage.Error);
 }
 ```
+## Update types
+Updates can be stored on your server in two different formats: *JSON* or *XML*. Be sure to set the right DataType when initializing the UpdateManager:
+```C#
+UpdateManager updateManager = new UpdateManager(Assembly.GetExecutingAssembly().GetName().Version, "https://yoururl/update.xml", stringVariables, DataType.Xml);
+```
 
-## Update XML example
+```C#
+UpdateManager updateManager = new UpdateManager(Assembly.GetExecutingAssembly().GetName().Version, "https://yoururl/update.xml", stringVariables, DataType.Json);
+```
+
+### JSON example
+```JSON
+{
+	"MajorVersion": 1,
+	"MinorVersion": 0,
+	"BuildVersion": 0,
+	"RevisionVersion": 0,
+	"UpdateUrl": "https://example.com/update.exe",
+	"InfoUrl": "https://codedead.com",
+	"UpdateInfo": "A new version is now available. Please click the download button to download version 1.0.0.0"
+}
+```
+
+### XML example
 ```XML
 <?xml version="1.0"?>
 <Update xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">

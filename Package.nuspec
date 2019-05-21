@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>CodeDead.UpdateManager</id>
-    <version>1.4.4</version>
+    <version>1.5</version>
     <authors>CodeDead</authors>
     <owners>CodeDead</owners>
     <license type="file">LICENSE.txt</license>
@@ -14,8 +14,7 @@
       This library can be used to check for application updates. It is designed for WPF and Windows Forms applications. In order to use it, you require an XML file on a remote or local server that represents the Update class.
     </description>
     <releaseNotes>
-      * Upgrade to .NET Framework 4.8
-      * Code refactoring
+      Added JSON support and some refactoring
     </releaseNotes>
     <copyright>Copyright © 2019 CodeDead</copyright>
     <tags>CodeDead UpdateManager Update Updater updates updating downloader</tags>
