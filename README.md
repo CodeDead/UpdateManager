@@ -2,7 +2,7 @@
 UpdateManager was created by DeadLine. This library was developed free of charge.
 
 This library can be used to check for application updates. It is designed for WPF and Windows Forms applications.
-In order to use it, you require an XML file on a remote or local server that represents the Update class.
+In order to use it, you require an XML or JSON file on a remote or local server that represents the Update class.
 
 ## Dependencies
 * [.NET Framework 4.8](https://dotnet.microsoft.com/download/dotnet-framework/net48)
@@ -11,7 +11,7 @@ In order to use it, you require an XML file on a remote or local server that rep
 UpdateManager is available as a [NuGet package](https://www.nuget.org/packages/CodeDead.UpdateManager/). You can find it here:  
 https://www.nuget.org/packages/CodeDead.UpdateManager/
 
-Create a new UpdateManager object like this:
+Create a new *UpdateManager* object like this:
 ```C#
 // Import statement
 using CodeDead.UpdateManager.Classes;
@@ -28,7 +28,7 @@ StringVariables stringVariables = new StringVariables
 UpdateManager updateManager = new UpdateManager(Assembly.GetExecutingAssembly().GetName().Version, "https://yoururl/update.xml", stringVariables, DataType.Xml);
 ```
 
-Check for updates like this:
+You can check for updates like this:
 ```C#
 try
 {
@@ -40,13 +40,13 @@ catch (Exception ex)
 }
 ```
 ## Update types
-Updates can be stored on your server in two different formats: *JSON* or *XML*. Be sure to set the right DataType when initializing the UpdateManager:
+Updates can be stored on your server in two different formats: *JSON* or *XML*. Be sure to set the right *DataType* when initializing the UpdateManager:
 ```C#
 UpdateManager updateManager = new UpdateManager(Assembly.GetExecutingAssembly().GetName().Version, "https://yoururl/update.xml", stringVariables, DataType.Xml);
 ```
 
 ```C#
-UpdateManager updateManager = new UpdateManager(Assembly.GetExecutingAssembly().GetName().Version, "https://yoururl/update.xml", stringVariables, DataType.Json);
+UpdateManager updateManager = new UpdateManager(Assembly.GetExecutingAssembly().GetName().Version, "https://yoururl/update.json", stringVariables, DataType.Json);
 ```
 
 ### JSON example
@@ -56,7 +56,7 @@ UpdateManager updateManager = new UpdateManager(Assembly.GetExecutingAssembly().
 	"MinorVersion": 0,
 	"BuildVersion": 0,
 	"RevisionVersion": 0,
-	"UpdateUrl": "https://example.com/update.exe",
+	"UpdateUrl": "https://codedead.com/update.exe",
 	"InfoUrl": "https://codedead.com",
 	"UpdateInfo": "A new version is now available. Please click the download button to download version 1.0.0.0"
 }
@@ -84,4 +84,3 @@ This library is maintained by CodeDead. You can find more about us using the fol
 * [Reddit](https://reddit.com/r/CodeDead/)
 
 We would also like to thank JetBrains for the open source license that they granted us to work with wonderful tools such as [Rider](https://jetbrains.com/rider) and [Resharper](https://jetbrains.com/resharper).
-
