@@ -33,7 +33,7 @@ namespace CodeDead.UpdateManager.Classes.Utils
                 }
 
                 stream.Position = 0;
-                update = (Update)serializer.Deserialize(stream);
+                update = (Update) serializer.Deserialize(stream);
                 update.ApplicationVersion = applicationVersion;
             }
 
@@ -64,7 +64,7 @@ namespace CodeDead.UpdateManager.Classes.Utils
                     }
 
                     stream.Position = 0;
-                    update = (Update)serializer.Deserialize(stream);
+                    update = (Update) serializer.Deserialize(stream);
                     update.ApplicationVersion = applicationVersion;
                 }
 

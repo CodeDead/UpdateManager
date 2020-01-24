@@ -10,46 +10,55 @@ namespace CodeDead.UpdateManager.Classes
     public sealed class Update
     {
         #region XML_Update
+
         /// <summary>
         /// The major version of the most current update
         /// </summary>
         public int MajorVersion;
+
         /// <summary>
         /// The minor version of the most current update
         /// </summary>
         public int MinorVersion;
+
         /// <summary>
         /// The build version of the most current update
         /// </summary>
         public int BuildVersion;
+
         /// <summary>
         /// The revision version of the most current update
         /// </summary>
         public int RevisionVersion;
+
         /// <summary>
         /// The update URL of the most current update
         /// </summary>
         public string UpdateUrl;
+
         /// <summary>
         /// The information URL of the most current update
         /// </summary>
         public string InfoUrl;
+
         /// <summary>
         /// The information in plain text regarding this update
         /// </summary>
         public string UpdateInfo;
+
         #endregion
 
         #region Assigned_Variables
+
         /// <summary>
         /// The current application version
         /// </summary>
-        [XmlIgnore]
-        [ScriptIgnore]
-        private Version _applicationVersion;
+        [XmlIgnore] [ScriptIgnore] private Version _applicationVersion;
+
         #endregion
 
         #region Properties
+
         /// <summary>
         /// Gets or sets the current application version
         /// </summary>
@@ -60,6 +69,7 @@ namespace CodeDead.UpdateManager.Classes
             get => _applicationVersion;
             set => _applicationVersion = value ?? throw new ArgumentNullException(nameof(value));
         }
+
         #endregion
 
         /// <summary>

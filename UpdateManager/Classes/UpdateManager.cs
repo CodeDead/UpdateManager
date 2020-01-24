@@ -13,18 +13,22 @@ namespace CodeDead.UpdateManager.Classes
     public sealed class UpdateManager
     {
         #region Variables
+
         /// <summary>
         /// The URL that can be used to check for updates
         /// </summary>
         private string _updateUrl;
+
         /// <summary>
         /// The version of the application
         /// </summary>
         private Version _applicationVersion;
+
         /// <summary>
         /// The string variables that can be used to display information to the user
         /// </summary>
         private StringVariables _stringVariables;
+
         #endregion
 
         /// <summary>
@@ -58,7 +62,8 @@ namespace CodeDead.UpdateManager.Classes
         /// <param name="stringVariables">StringVariables object containing strings that can be used to display information to the user</param>
         /// <param name="dataType">The DataType that can be used to deserialize the update information</param>
         /// <param name="showNoUpdates">Sets whether a dialog should be displayed when no updates are available</param>
-        public UpdateManager(Version version, string updateUrl, StringVariables stringVariables, DataType dataType, bool showNoUpdates)
+        public UpdateManager(Version version, string updateUrl, StringVariables stringVariables, DataType dataType,
+            bool showNoUpdates)
         {
             UpdateUrl = updateUrl;
             DataType = dataType;
@@ -199,7 +204,8 @@ namespace CodeDead.UpdateManager.Classes
             {
                 if (ShowNoUpdates)
                 {
-                    MessageBox.Show(_stringVariables.NoNewVersionText, _stringVariables.TitleText, MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show(_stringVariables.NoNewVersionText, _stringVariables.TitleText, MessageBoxButton.OK,
+                        MessageBoxImage.Information);
                 }
             }
         }
