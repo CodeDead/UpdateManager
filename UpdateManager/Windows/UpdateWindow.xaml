@@ -10,25 +10,25 @@
     WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <TextBlock x:Name="TxtInfo" Grid.Row="0" Margin="3" TextWrapping="WrapWithOverflow" />
-        <ProgressBar Grid.Row="1" MinHeight="25" MinWidth="250" Margin="3" x:Name="PgbDownloadStatus" Visibility="Collapsed" />
+        <TextBlock x:Name="TxtInfo" Grid.Row="0" Margin="3" TextWrapping="WrapWithOverflow"/>
+        <ProgressBar Grid.Row="1" MinHeight="25" MinWidth="250" Margin="3" x:Name="PgbDownloadStatus" Visibility="Collapsed"/>
 
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            
+
             <Button x:Name="BtnInformation" Content="Information" MinHeight="25" Margin="3" Click="BtnInformation_OnClick"/>
-            <Button x:Name="BtnCancel" Grid.Column="2" Content="Cancel" MinHeight="25" Margin="3" Click="BtnCancel_OnClick" />
-            <Button x:Name="BtnDownload" Grid.Column="3" Content="Download" MinHeight="25" Margin="3" Click="BtnDownload_OnClick" />
+            <Button x:Name="BtnCancel" Grid.Column="2" Content="Cancel" MinHeight="25" Margin="3" Click="BtnCancel_OnClick"/>
+            <Button x:Name="BtnDownload" Grid.Column="3" Content="Download" MinHeight="25" Margin="3" Click="BtnDownload_OnClick"/>
         </Grid>
     </Grid>
 </Window>

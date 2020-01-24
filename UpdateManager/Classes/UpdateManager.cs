@@ -53,6 +53,25 @@ namespace CodeDead.UpdateManager.Classes
         }
 
         /// <summary>
+        /// Initiate a new UpdateManager object
+        /// </summary>
+        /// <param name="version">Your application version</param>
+        /// <param name="updateUrl">The URL where your XML update file is located</param>
+        /// <param name="stringVariables">StringVariables object containing strings that can be used to display information to the user</param>
+        /// <param name="dataType">The DataType that can be used to deserialize the update information</param>
+        /// <param name="showNoUpdates">Sets whether a dialog should be displayed when no updates are available</param>
+        /// <param name="showErrors">Sets whether error messages should be displayed in a dialog</param>
+        public UpdateManager(Version version, string updateUrl, StringVariables stringVariables, DataType dataType, bool showNoUpdates, bool showErrors)
+        {
+            UpdateUrl = updateUrl;
+            DataType = dataType;
+            Version = new Version(version.Major, version.Minor, version.Build, version.Revision);
+            StringVariables = stringVariables;
+            ShowNoUpdates = showNoUpdates;
+            ShowErrors = showErrors;
+        }
+
+        /// <summary>
         /// Initialize a new UpdateManager object
         /// </summary>
         /// <param name="version">Your application version</param>
@@ -121,6 +140,7 @@ namespace CodeDead.UpdateManager.Classes
             {
                 string data = new WebClient().DownloadString(UpdateUrl);
                 Update update;
+                // ReSharper disable once SwitchStatementHandlesSomeKnownEnumValuesWithDefault
                 switch (DataType)
                 {
                     default:
@@ -172,6 +192,7 @@ namespace CodeDead.UpdateManager.Classes
             {
                 string data = await new WebClient().DownloadStringTaskAsync(UpdateUrl);
                 Update update;
+                // ReSharper disable once SwitchStatementHandlesSomeKnownEnumValuesWithDefault
                 switch (DataType)
                 {
                     default:
