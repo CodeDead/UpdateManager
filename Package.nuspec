@@ -11,7 +11,7 @@
     <iconUrl>https://codedead.com/Software/codedead.png</iconUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>
-      This library can be used to check for application updates. It is designed for WPF and Windows Forms applications. In order to use it, you require an XML file on a remote or local server that represents the Update class.
+      This library can be used to check for application updates. It is designed for WPF and Windows Forms applications. In order to use it, you require an XML or JSON file on a remote or local server that represents the Update class.
     </description>
     <releaseNotes>
       Added support for asynchronously checking for updates
