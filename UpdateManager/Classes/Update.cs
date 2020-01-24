@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Web.Script.Serialization;
 using System.Xml.Serialization;
 
 namespace CodeDead.UpdateManager.Classes
 {
     /// <summary>
-    /// Check whether a new version is available or not
+    /// Class that represents an application update
     /// </summary>
     public sealed class Update
     {
@@ -44,26 +45,33 @@ namespace CodeDead.UpdateManager.Classes
         /// The current application version
         /// </summary>
         [XmlIgnore]
+        [ScriptIgnore]
         private Version _applicationVersion;
         #endregion
 
+        #region Properties
         /// <summary>
-        /// Set the version of the Application
+        /// Gets or sets the current application version
         /// </summary>
-        /// <param name="version">The Version of the application</param>
-        internal void SetApplicationVersion(Version version)
+        [XmlIgnore]
+        [ScriptIgnore]
+        public Version ApplicationVersion
         {
-            _applicationVersion = version;
+            get => _applicationVersion;
+            set => _applicationVersion = value ?? throw new ArgumentNullException(nameof(value));
         }
+        #endregion
 
         /// <summary>
         /// Check whether or not there is an update available
         /// </summary>
         /// <returns>A boolean to represent whether there is an update available or not</returns>
-        internal bool CheckForUpdate()
+        public bool CheckForUpdate()
         {
+            if (ApplicationVersion == null) throw new ArgumentNullException(nameof(ApplicationVersion));
+
             int result = new Version(MajorVersion, MinorVersion, BuildVersion, RevisionVersion)
-                .CompareTo(_applicationVersion);
+                .CompareTo(ApplicationVersion);
             return result > 0;
         }
     }

@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="Classes\DataType.cs" />
     <Compile Include="Classes\StringVariables.cs" />
+    <Compile Include="Classes\Utils\UpdateDeserializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Classes\Update.cs" />
     <Compile Include="Classes\UpdateManager.cs" />

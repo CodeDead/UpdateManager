@@ -1,16 +1,14 @@
 ﻿using System;
-using System.IO;
 using System.Net;
 using System.Threading.Tasks;
-using System.Web.Script.Serialization;
 using System.Windows;
-using System.Xml.Serialization;
+using CodeDead.UpdateManager.Classes.Utils;
 using CodeDead.UpdateManager.Windows;
 
 namespace CodeDead.UpdateManager.Classes
 {
     /// <summary>
-    /// The UpdateManager has the ability to check for software updates
+    /// Class that has the ability to check for software updates
     /// </summary>
     public sealed class UpdateManager
     {
@@ -48,7 +46,7 @@ namespace CodeDead.UpdateManager.Classes
         {
             UpdateUrl = updateUrl;
             DataType = dataType;
-            Version = new Version(version.Major, version.Minor, version.Build, version.Revision);
+            ApplicationVersion = new Version(version.Major, version.Minor, version.Build, version.Revision);
             StringVariables = stringVariables;
         }
 
@@ -60,15 +58,13 @@ namespace CodeDead.UpdateManager.Classes
         /// <param name="stringVariables">StringVariables object containing strings that can be used to display information to the user</param>
         /// <param name="dataType">The DataType that can be used to deserialize the update information</param>
         /// <param name="showNoUpdates">Sets whether a dialog should be displayed when no updates are available</param>
-        /// <param name="showErrors">Sets whether error messages should be displayed in a dialog</param>
-        public UpdateManager(Version version, string updateUrl, StringVariables stringVariables, DataType dataType, bool showNoUpdates, bool showErrors)
+        public UpdateManager(Version version, string updateUrl, StringVariables stringVariables, DataType dataType, bool showNoUpdates)
         {
             UpdateUrl = updateUrl;
             DataType = dataType;
-            Version = new Version(version.Major, version.Minor, version.Build, version.Revision);
+            ApplicationVersion = new Version(version.Major, version.Minor, version.Build, version.Revision);
             StringVariables = stringVariables;
             ShowNoUpdates = showNoUpdates;
-            ShowErrors = showErrors;
         }
 
         /// <summary>
@@ -81,7 +77,7 @@ namespace CodeDead.UpdateManager.Classes
         {
             UpdateUrl = updateUrl;
             DataType = dataType;
-            Version = new Version(version.Major, version.Minor, version.Build, version.Revision);
+            ApplicationVersion = new Version(version.Major, version.Minor, version.Build, version.Revision);
             StringVariables = new StringVariables();
         }
 
@@ -104,16 +100,11 @@ namespace CodeDead.UpdateManager.Classes
         /// <summary>
         /// Gets or sets the local version of the application
         /// </summary>
-        public Version Version
+        public Version ApplicationVersion
         {
             get => _applicationVersion;
             set => _applicationVersion = value ?? throw new ArgumentNullException(nameof(value));
         }
-
-        /// <summary>
-        /// Gets or sets whether errors should be displayed while checking for updates
-        /// </summary>
-        public bool ShowErrors { get; set; } = true;
 
         /// <summary>
         /// Gets or sets whether a dialog should be displayed when no updates are available
@@ -132,201 +123,85 @@ namespace CodeDead.UpdateManager.Classes
         #endregion
 
         /// <summary>
-        /// Check if there are updates available
+        /// Retrieve the latest Update object
         /// </summary>
-        public void CheckForUpdates()
+        public Update GetLatestVersion()
         {
-            try
-            {
-                string data = new WebClient().DownloadString(UpdateUrl);
-                Update update;
-                // ReSharper disable once SwitchStatementHandlesSomeKnownEnumValuesWithDefault
-                switch (DataType)
-                {
-                    default:
-                        update = DeserializeJson(data);
-                        break;
-                    case DataType.Xml:
-                        update = DeserializeXml(data);
-                        break;
-                }
+            if (UpdateUrl == null) throw new ArgumentNullException(nameof(UpdateUrl));
+            if (UpdateUrl.Length == 0) throw new ArgumentException(nameof(UpdateUrl));
 
-                if (update.CheckForUpdate())
-                {
-                    UpdateWindow window = new UpdateWindow
-                    {
-                        Title = _stringVariables.TitleText,
-                        InformationTextBlockContent = update.UpdateInfo,
-                        InformationButtonContent = _stringVariables.InformationButtonText,
-                        CancelButtonContent = _stringVariables.CancelButtonText,
-                        DownloadButtonContent = _stringVariables.DownloadButtonText,
-                        DownloadUrl = update.UpdateUrl,
-                        InformationUrl = update.InfoUrl,
-                        UpdateNowText = _stringVariables.UpdateNowText
-                    };
-                    window.ShowDialog();
-                }
-                else
-                {
-                    if (ShowNoUpdates)
-                    {
-                        MessageBox.Show(_stringVariables.NoNewVersionText, _stringVariables.TitleText, MessageBoxButton.OK, MessageBoxImage.Information);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                if (ShowErrors)
-                {
-                    MessageBox.Show(ex.Message, _stringVariables.TitleText, MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Asynchronously check if there are updates available
-        /// </summary>
-        public async Task CheckForUpdatesAsync()
-        {
-            try
-            {
-                string data = await new WebClient().DownloadStringTaskAsync(UpdateUrl);
-                Update update;
-                // ReSharper disable once SwitchStatementHandlesSomeKnownEnumValuesWithDefault
-                switch (DataType)
-                {
-                    default:
-                        update = await DeserializeJsonAsync(data);
-                        break;
-                    case DataType.Xml:
-                        update = await DeserializeXmlAsync(data);
-                        break;
-                }
-
-                if (update.CheckForUpdate())
-                {
-                    UpdateWindow window = new UpdateWindow
-                    {
-                        Title = _stringVariables.TitleText,
-                        InformationTextBlockContent = update.UpdateInfo,
-                        InformationButtonContent = _stringVariables.InformationButtonText,
-                        CancelButtonContent = _stringVariables.CancelButtonText,
-                        DownloadButtonContent = _stringVariables.DownloadButtonText,
-                        DownloadUrl = update.UpdateUrl,
-                        InformationUrl = update.InfoUrl,
-                        UpdateNowText = _stringVariables.UpdateNowText
-                    };
-                    window.ShowDialog();
-                }
-                else
-                {
-                    if (ShowNoUpdates)
-                    {
-                        MessageBox.Show(_stringVariables.NoNewVersionText, _stringVariables.TitleText, MessageBoxButton.OK, MessageBoxImage.Information);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                if (ShowErrors)
-                {
-                    MessageBox.Show(ex.Message, _stringVariables.TitleText, MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Deserialize XML data into an Update object
-        /// </summary>
-        /// <param name="data">The XML data that should be deserialized</param>
-        /// <returns>The Update object that was deserialized</returns>
-        private Update DeserializeXml(string data)
-        {
-            if (data == null) throw new ArgumentNullException(nameof(data));
-            if (data.Length == 0) throw new ArgumentException(nameof(data));
-
+            string data = new WebClient().DownloadString(UpdateUrl);
             Update update;
-            XmlSerializer serializer = new XmlSerializer(typeof(Update));
-            using (MemoryStream stream = new MemoryStream())
-            {
-                using (StreamWriter writer = new StreamWriter(stream))
-                {
-                    writer.Write(data);
-                    writer.Flush();
-                }
 
-                stream.Position = 0;
-                update = (Update)serializer.Deserialize(stream);
-                update.SetApplicationVersion(_applicationVersion);
+            // ReSharper disable once SwitchStatementHandlesSomeKnownEnumValuesWithDefault
+            switch (DataType)
+            {
+                default:
+                    update = UpdateDeserializer.DeserializeJson(data, ApplicationVersion);
+                    break;
+                case DataType.Xml:
+                    update = UpdateDeserializer.DeserializeXml(data, ApplicationVersion);
+                    break;
             }
 
             return update;
         }
 
         /// <summary>
-        /// Deserialize XML data into an Update object asynchronously
+        /// Asynchronously retrieve the latest Update object
         /// </summary>
-        /// <param name="data">The XML data that should be deserialized</param>
-        /// <returns>The Update object that was deserialized or null if an error occurred</returns>
-        private async Task<Update> DeserializeXmlAsync(string data)
+        public async Task<Update> GetLatestVersionAsync()
         {
-            if (data == null) throw new ArgumentNullException(nameof(data));
-            if (data.Length == 0) throw new ArgumentException(nameof(data));
+            if (UpdateUrl == null) throw new ArgumentNullException(nameof(UpdateUrl));
+            if (UpdateUrl.Length == 0) throw new ArgumentException(nameof(UpdateUrl));
 
-            await Task.Run(async () =>
+            string data = await new WebClient().DownloadStringTaskAsync(UpdateUrl);
+            Update update;
+
+            // ReSharper disable once SwitchStatementHandlesSomeKnownEnumValuesWithDefault
+            switch (DataType)
             {
-                Update update;
-                XmlSerializer serializer = new XmlSerializer(typeof(Update));
-                using (MemoryStream stream = new MemoryStream())
-                {
-                    using (StreamWriter writer = new StreamWriter(stream))
-                    {
-                        await writer.WriteAsync(data);
-                        await writer.FlushAsync();
-                    }
+                default:
+                    update = await UpdateDeserializer.DeserializeJsonAsync(data, ApplicationVersion);
+                    break;
+                case DataType.Xml:
+                    update = await UpdateDeserializer.DeserializeXmlAsync(data, ApplicationVersion);
+                    break;
+            }
 
-                    stream.Position = 0;
-                    update = (Update)serializer.Deserialize(stream);
-                    update.SetApplicationVersion(_applicationVersion);
-                }
-
-                return update;
-            });
-            return null;
-        }
-
-        /// <summary>
-        /// Deserialize JSON data into an Update object
-        /// </summary>
-        /// <param name="data">The JSON data that should be deserialized</param>
-        /// <returns>The Update object that was deserialized</returns>
-        private Update DeserializeJson(string data)
-        {
-            if (data == null) throw new ArgumentNullException(nameof(data));
-            if (data.Length == 0) throw new ArgumentException(nameof(data));
-
-            Update update = new JavaScriptSerializer().Deserialize<Update>(data);
-            update.SetApplicationVersion(_applicationVersion);
             return update;
         }
 
         /// <summary>
-        /// Deserialize JSON data into an Update object asynchronously
+        /// Display an update dialog, if applicable
         /// </summary>
-        /// <param name="data">The JSON data that should be deserialized</param>
-        /// <returns>The Update object that was deserialized</returns>
-        private async Task<Update> DeserializeJsonAsync(string data)
+        /// <param name="applicationUpdate">The Update that contains the latest information regarding the version</param>
+        public void DisplayUpdateDialog(Update applicationUpdate)
         {
-            if (data == null) throw new ArgumentNullException(nameof(data));
-            if (data.Length == 0) throw new ArgumentException(nameof(data));
+            if (applicationUpdate == null) throw new ArgumentNullException(nameof(applicationUpdate));
 
-            await Task.Run(() =>
+            if (applicationUpdate.CheckForUpdate())
             {
-                Update update = new JavaScriptSerializer().Deserialize<Update>(data);
-                update.SetApplicationVersion(_applicationVersion);
-                return update;
-            });
-            return null;
+                UpdateWindow window = new UpdateWindow
+                {
+                    Title = _stringVariables.TitleText,
+                    InformationTextBlockContent = applicationUpdate.UpdateInfo,
+                    InformationButtonContent = _stringVariables.InformationButtonText,
+                    CancelButtonContent = _stringVariables.CancelButtonText,
+                    DownloadButtonContent = _stringVariables.DownloadButtonText,
+                    DownloadUrl = applicationUpdate.UpdateUrl,
+                    InformationUrl = applicationUpdate.InfoUrl,
+                    UpdateNowText = _stringVariables.UpdateNowText
+                };
+                window.ShowDialog();
+            }
+            else
+            {
+                if (ShowNoUpdates)
+                {
+                    MessageBox.Show(_stringVariables.NoNewVersionText, _stringVariables.TitleText, MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            }
         }
     }
 }
