@@ -11,21 +11,16 @@ In order to use it, you require an XML or JSON file on a remote or local server 
 UpdateManager is available as a [NuGet package](https://www.nuget.org/packages/CodeDead.UpdateManager/). You can find it here:  
 https://www.nuget.org/packages/CodeDead.UpdateManager/
 
+A sample project can be found here:
+https://github.com/CodeDead/UpdateManager/tree/master/UpdateManager.Sample
+
 Create a new *UpdateManager* object like this:
 ```C#
 // Import statement
 using CodeDead.UpdateManager.Classes;
-// Setting text variables
-StringVariables stringVariables = new StringVariables
-{
-	CancelButtonText = "Cancel",
-	DownloadButtonText = "Download",
-	InformationButtonText = "Information",
-	NoNewVersionText = "You are running the latest version!",
-	TitleText = "Your application title",
-	UpdateNowText = "Would you like to update the application now?"
-};
-UpdateManager updateManager = new UpdateManager(Assembly.GetExecutingAssembly().GetName().Version, "https://yoururl/update.xml", stringVariables, DataType.Xml);
+
+// Initialize a new UpdateManager object
+UpdateManager updateManager = new UpdateManager();
 ```
 
 You can check for updates like this:
@@ -40,16 +35,22 @@ catch (Exception ex)
 }
 ```
 ## Update types
-Updates can be stored on your server in two different formats: *JSON* or *XML*. Be sure to set the right *DataType* when initializing the UpdateManager:
+Updates can be stored and parsed in two different formats: *JSON* or *XML*. By default, the *DataType* property will be set to *Json*. You can change the *DataType* property by setting the appropriate property on the *UpdateManager* object:
 ```C#
-UpdateManager updateManager = new UpdateManager(Assembly.GetExecutingAssembly().GetName().Version, "https://yoururl/update.xml", stringVariables, DataType.Xml);
+// Initialize a new UpdateManager object
+UpdateManager updateManager = new UpdateManager();
+// Set the data type of the remote Update object representation
+updateManager.DataType = DataType.Json;
 ```
 
 ```C#
-UpdateManager updateManager = new UpdateManager(Assembly.GetExecutingAssembly().GetName().Version, "https://yoururl/update.json", stringVariables, DataType.Json);
+// Initialize a new UpdateManager object
+UpdateManager updateManager = new UpdateManager();
+// Set the data type of the remote Update object representation
+updateManager.DataType = DataType.Xml;
 ```
 
-### JSON example
+### JSON Update example
 ```JSON
 {
 	"MajorVersion": 1,
@@ -62,7 +63,7 @@ UpdateManager updateManager = new UpdateManager(Assembly.GetExecutingAssembly().
 }
 ```
 
-### XML example
+### XML Update example
 ```XML
 <?xml version="1.0"?>
 <Update xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">

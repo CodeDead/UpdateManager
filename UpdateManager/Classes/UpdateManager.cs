@@ -91,7 +91,7 @@ namespace CodeDead.UpdateManager.Classes
         /// <summary>
         /// Gets or sets the DataType that can be used to deserialize the update information
         /// </summary>
-        public DataType DataType { get; set; }
+        public DataType DataType { get; set; } = DataType.Json;
 
         /// <summary>
         /// Gets or sets the update URL

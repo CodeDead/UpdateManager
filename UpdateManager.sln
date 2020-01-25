@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26228.4
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29709.97
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UpdateManager", "UpdateManager\UpdateManager.csproj", "{4E804EAD-446A-47CC-B231-0A6255B867A3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UpdateManager.Sample", "UpdateManager.Sample\UpdateManager.Sample.csproj", "{D03650D7-39E3-4424-88FB-9B537DC2B98A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,8 +17,15 @@ Global
 		{4E804EAD-446A-47CC-B231-0A6255B867A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4E804EAD-446A-47CC-B231-0A6255B867A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4E804EAD-446A-47CC-B231-0A6255B867A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D03650D7-39E3-4424-88FB-9B537DC2B98A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D03650D7-39E3-4424-88FB-9B537DC2B98A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D03650D7-39E3-4424-88FB-9B537DC2B98A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D03650D7-39E3-4424-88FB-9B537DC2B98A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2598BA8F-2BCF-42AE-8F01-9F4303AEACBE}
 	EndGlobalSection
 EndGlobal
