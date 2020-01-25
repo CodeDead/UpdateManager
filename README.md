@@ -12,6 +12,7 @@ UpdateManager is available as a [NuGet package](https://www.nuget.org/packages/C
 https://www.nuget.org/packages/CodeDead.UpdateManager/
 
 A sample project can be found here:
+
 https://github.com/CodeDead/UpdateManager/tree/master/UpdateManager.Sample
 
 Create a new *UpdateManager* object like this:
