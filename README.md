@@ -27,7 +27,8 @@ You can check for updates like this:
 ```C#
 try
 {
-  updateManager.CheckForUpdate(showErrors, showNoUpdates);
+  // Retrieve the latest Update object from the remote location
+  Update update = updateManager.GetLatestVersion();
 }
 catch (Exception ex)
 {
