@@ -1,5 +1,6 @@
 ﻿using System;
 using CodeDead.UpdateManager.Classes;
+using CodeDead.UpdateManager.WPF.Classes;
 
 namespace UpdateManager.Sample
 {
@@ -36,14 +37,12 @@ namespace UpdateManager.Sample
             updateManager.UpdateUrl = "https://codedead.com/Software/PK%20Finder/update.json";
             // Set that a message should be displayed if no updates are available
             updateManager.ShowNoUpdates = true;
-            // Set the StringVariables object
-            updateManager.StringVariables = stringVariables;
 
             // Retrieve the latest Update object from the remote location
             Update update = updateManager.GetLatestVersion();
 
             // Display an update dialog, if applicable
-            updateManager.DisplayUpdateDialog(update);
+            new UpdateDialogManager(stringVariables, true).DisplayUpdateDialog(update);
         }
     }
 }

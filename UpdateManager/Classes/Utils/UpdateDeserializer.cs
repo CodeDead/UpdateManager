@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Threading.Tasks;
-using System.Web.Script.Serialization;
+using Newtonsoft.Json;
 using System.Xml.Serialization;
 
 namespace CodeDead.UpdateManager.Classes.Utils
@@ -83,7 +83,7 @@ namespace CodeDead.UpdateManager.Classes.Utils
             if (data == null) throw new ArgumentNullException(nameof(data));
             if (data.Length == 0) throw new ArgumentException(nameof(data));
 
-            Update update = new JavaScriptSerializer().Deserialize<Update>(data);
+            Update update = JsonConvert.DeserializeObject<Update>(data);
             update.ApplicationVersion = applicationVersion;
             return update;
         }
@@ -102,7 +102,7 @@ namespace CodeDead.UpdateManager.Classes.Utils
             Update update = null;
             await Task.Run(() =>
             {
-                update = new JavaScriptSerializer().Deserialize<Update>(data);
+                update = JsonConvert.DeserializeObject<Update>(data);
                 update.ApplicationVersion = applicationVersion;
             });
             return update;

@@ -1,4 +1,4 @@
-﻿namespace CodeDead.UpdateManager.Classes
+﻿namespace CodeDead.UpdateManager.WPF.Classes
 {
     /// <summary>
     /// Class containing all available strings that can be displayed to the user
