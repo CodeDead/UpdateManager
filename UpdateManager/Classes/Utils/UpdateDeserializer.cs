@@ -33,7 +33,7 @@ namespace CodeDead.UpdateManager.Classes.Utils
                 }
 
                 stream.Position = 0;
-                update = (Update) serializer.Deserialize(stream);
+                update = (Update)serializer.Deserialize(stream);
                 update.ApplicationVersion = applicationVersion;
             }
 
@@ -51,9 +51,9 @@ namespace CodeDead.UpdateManager.Classes.Utils
             if (data == null) throw new ArgumentNullException(nameof(data));
             if (data.Length == 0) throw new ArgumentException(nameof(data));
 
+            Update update = null;
             await Task.Run(async () =>
             {
-                Update update;
                 XmlSerializer serializer = new XmlSerializer(typeof(Update));
                 using (MemoryStream stream = new MemoryStream())
                 {
@@ -64,13 +64,12 @@ namespace CodeDead.UpdateManager.Classes.Utils
                     }
 
                     stream.Position = 0;
-                    update = (Update) serializer.Deserialize(stream);
+                    update = (Update)serializer.Deserialize(stream);
                     update.ApplicationVersion = applicationVersion;
                 }
-
                 return update;
             });
-            return null;
+            return update;
         }
 
         /// <summary>
@@ -100,13 +99,13 @@ namespace CodeDead.UpdateManager.Classes.Utils
             if (data == null) throw new ArgumentNullException(nameof(data));
             if (data.Length == 0) throw new ArgumentException(nameof(data));
 
+            Update update = null;
             await Task.Run(() =>
             {
-                Update update = new JavaScriptSerializer().Deserialize<Update>(data);
+                update = new JavaScriptSerializer().Deserialize<Update>(data);
                 update.ApplicationVersion = applicationVersion;
-                return update;
             });
-            return null;
+            return update;
         }
     }
 }

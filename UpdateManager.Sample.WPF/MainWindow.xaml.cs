@@ -1,15 +1,28 @@
-﻿using System;
+﻿using System.Reflection;
+using System.Windows;
 using CodeDead.UpdateManager.Classes;
 
-namespace UpdateManager.Sample
+namespace UpdateManager.Sample.WPF
 {
     /// <summary>
-    /// Sample class for using an UpdateManager
+    /// Interaction logic for MainWindow.xaml
     /// </summary>
-    internal class Program
+    public partial class MainWindow : Window
     {
-        [STAThread]
-        private static void Main()
+        /// <summary>
+        /// Initialize a new MainWindow
+        /// </summary>
+        public MainWindow()
+        {
+            InitializeComponent();
+        }
+
+        /// <summary>
+        /// Method that is called when the Update button is clicked
+        /// </summary>
+        /// <param name="sender">The sender that initiated this method</param>
+        /// <param name="e">The RoutedEventArgs</param>
+        private async void UpdateButton_Click(object sender, RoutedEventArgs e)
         {
             // Initialize a new UpdateManager object
             CodeDead.UpdateManager.Classes.UpdateManager updateManager = new CodeDead.UpdateManager.Classes.UpdateManager();
@@ -25,10 +38,8 @@ namespace UpdateManager.Sample
                 UpdateNowText = "Would you like to update to the latest version now?"
             };
 
-            // Set the version of the current application
-            updateManager.ApplicationVersion = new Version(1, 0, 0, 0);
-            // Alternatively, you can automatically get the current application's version by utilizing:
-            // updateManager.ApplicationVersion = Assembly.GetExecutingAssembly().GetName().Version;
+            // Automatically get the current application's version by utilizing
+            updateManager.ApplicationVersion = Assembly.GetExecutingAssembly().GetName().Version;
 
             // Set the data type of the remote Update object representation
             updateManager.DataType = DataType.Json;
@@ -39,8 +50,8 @@ namespace UpdateManager.Sample
             // Set the StringVariables object
             updateManager.StringVariables = stringVariables;
 
-            // Retrieve the latest Update object from the remote location
-            Update update = updateManager.GetLatestVersion();
+            // Retrieve the latest Update object from the remote location asynchronously
+            Update update = await updateManager.GetLatestVersionAsync();
 
             // Display an update dialog, if applicable
             updateManager.DisplayUpdateDialog(update);

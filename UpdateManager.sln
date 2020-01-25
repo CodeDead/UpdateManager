@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UpdateManager", "UpdateMana
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UpdateManager.Sample", "UpdateManager.Sample\UpdateManager.Sample.csproj", "{D03650D7-39E3-4424-88FB-9B537DC2B98A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UpdateManager.Sample.WPF", "UpdateManager.Sample.WPF\UpdateManager.Sample.WPF.csproj", "{C9F196C9-2FF0-4DD2-9E8E-A7CFACBD2ECF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{D03650D7-39E3-4424-88FB-9B537DC2B98A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D03650D7-39E3-4424-88FB-9B537DC2B98A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D03650D7-39E3-4424-88FB-9B537DC2B98A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9F196C9-2FF0-4DD2-9E8E-A7CFACBD2ECF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9F196C9-2FF0-4DD2-9E8E-A7CFACBD2ECF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9F196C9-2FF0-4DD2-9E8E-A7CFACBD2ECF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9F196C9-2FF0-4DD2-9E8E-A7CFACBD2ECF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

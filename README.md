@@ -11,9 +11,9 @@ In order to use it, you require an XML or JSON file on a remote or local server 
 UpdateManager is available as a [NuGet package](https://www.nuget.org/packages/CodeDead.UpdateManager/). You can find it here:  
 https://www.nuget.org/packages/CodeDead.UpdateManager/
 
-A sample project can be found here:
-
+Sample projects can be found here:  
 https://github.com/CodeDead/UpdateManager/tree/master/UpdateManager.Sample
+https://github.com/CodeDead/UpdateManager/tree/master/UpdateManager.Sample.WPF
 
 Create a new *UpdateManager* object like this:
 ```C#
