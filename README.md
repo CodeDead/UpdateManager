@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://codedead.com/Software/UpdateManager/logo.png">
+</p>
+
 # UpdateManager
 This library can be used to check for application updates. It is designed for WPF and Windows Forms applications.
 In order to use it, you require an XML or JSON file on a remote or local server that represents the Update class.
@@ -67,7 +71,7 @@ updateManager.DataType = DataType.Xml;
 ### *PlatformUpdates* JSON example
 ```JSON
 {
-  "UpdatePlatformList": [
+  "PlatformUpdateList": [
     {
       "PlatformName": "win32",
       "Update": {
@@ -99,15 +103,36 @@ updateManager.DataType = DataType.Xml;
 ### *PlatformUpdates* XML example
 ```XML
 <?xml version="1.0"?>
-<Update xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <MajorVersion>1</MajorVersion>
-  <MinorVersion>0</MinorVersion>
-  <BuildVersion>0</BuildVersion>
-  <RevisionVersion>0</RevisionVersion>
-  <UpdateUrl>https://example.com/update.exe</UpdateUrl>
-  <InfoUrl>https://codedead.com/</InfoUrl>
-  <UpdateInfo>A new version is now available. Please click the download button to download version 1.0.0.0</UpdateInfo>
-</Update>
+<PlatformUpdates
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<PlatformUpdateList>
+		<PlatformUpdate>
+			<PlatformName>win32</PlatformName>
+			<Update>
+				<MajorVersion>2</MajorVersion>
+				<MinorVersion>0</MinorVersion>
+				<BuildVersion>0</BuildVersion>
+				<RevisionVersion>0</RevisionVersion>
+				<UpdateUrl>https://codedead.com/Software/PK%20Finder/PK_setup.exe</UpdateUrl>
+				<InfoUrl>https://codedead.com</InfoUrl>
+				<UpdateInfo>A new version is now available. Please click the download button to download version 2.0.0.0</UpdateInfo>
+			</Update>
+		</PlatformUpdate>
+		<PlatformUpdate>
+			<PlatformName>linux</PlatformName>
+			<Update>
+				<MajorVersion>2</MajorVersion>
+				<MinorVersion>0</MinorVersion>
+				<BuildVersion>0</BuildVersion>
+				<RevisionVersion>0</RevisionVersion>
+				<UpdateUrl>https://codedead.com/Software/PK%20Finder/PK_setup.exe</UpdateUrl>
+				<InfoUrl>https://codedead.com</InfoUrl>
+				<UpdateInfo>A new version is now available. Please click the download button to download version 2.0.0.0</UpdateInfo>
+			</Update>
+		</PlatformUpdate>
+	</PlatformUpdateList>
+</PlatformUpdates>
 ```
 
 # About
