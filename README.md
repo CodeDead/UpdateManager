@@ -1,14 +1,11 @@
 # UpdateManager
-UpdateManager was created by DeadLine. This library was developed free of charge.
-
 This library can be used to check for application updates. It is designed for WPF and Windows Forms applications.
 In order to use it, you require an XML or JSON file on a remote or local server that represents the Update class.
 
-## Dependencies
+### Dependencies
 * .NET Standard 2.0
 
 ## Sample projects
-
 Sample projects can be found here:  
 https://github.com/CodeDead/UpdateManager/tree/master/UpdateManager.Sample  
 https://github.com/CodeDead/UpdateManager/tree/master/UpdateManager.Sample.WPF
@@ -17,15 +14,16 @@ https://github.com/CodeDead/UpdateManager/tree/master/UpdateManager.Sample.WPF
 UpdateManager is available as a [NuGet package](https://www.nuget.org/packages/CodeDead.UpdateManager/). You can find it here:  
 https://www.nuget.org/packages/CodeDead.UpdateManager/
 
+You can install the package using your package manager:
 ```NuGet
 Install-Package CodeDead.UpdateManager
 ```
-
+Command-line:
 ```CLI
 dotnet add package CodeDead.UpdateManager
 ```
 
-Create a new *UpdateManager* object like this:
+After the package has been added to your project, you can create a new *UpdateManager* object like this:
 ```C#
 // Import statement
 using CodeDead.UpdateManager.Classes;
@@ -34,7 +32,7 @@ using CodeDead.UpdateManager.Classes;
 UpdateManager updateManager = new UpdateManager();
 ```
 
-You can check for updates like this:
+You can check for updates by calling the *GetLatestVersion()* method of an *UpdateManager* object. An *Update* object will be returned, that you can then use to check for updates:
 ```C#
 // Retrieve the latest Update object from the remote location
 Update update = updateManager.GetLatestVersion();
@@ -42,8 +40,10 @@ Update update = updateManager.GetLatestVersion();
 bool updateAvailable = update.UpdateAvailable(Assembly.GetExecutingAssembly().GetName().Version);
 ```
 
-## Update types
-Updates can be stored and parsed in two different formats: *JSON* or *XML*. By default, the *DataType* property will be set to *Json*. You can change the *DataType* property by setting the appropriate property on the *UpdateManager* object:
+## PlatformUpdates
+*Update* objects can be retrieved for multiple platforms. The *PlatformUpdates* object is the root object that should be retrieved from a remote location.  
+  
+A *PlatformUpdates* object can be stored and parsed in two different formats: *JSON* or *XML*. By default, the *DataType* property will be set to *Json*. You can change the *DataType* property by setting the appropriate property on the *UpdateManager* object:
 ```C#
 // Initialize a new UpdateManager object
 UpdateManager updateManager = new UpdateManager();
@@ -58,7 +58,7 @@ UpdateManager updateManager = new UpdateManager();
 updateManager.DataType = DataType.Xml;
 ```
 
-### JSON Update example
+### *PlatformUpdates* JSON example
 ```JSON
 {
   "UpdatePlatformList": [
@@ -90,7 +90,7 @@ updateManager.DataType = DataType.Xml;
 }
 ```
 
-### XML Update example
+### *PlatformUpdates* XML example
 ```XML
 <?xml version="1.0"?>
 <Update xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
