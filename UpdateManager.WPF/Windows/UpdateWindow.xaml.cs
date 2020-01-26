@@ -100,6 +100,11 @@ namespace CodeDead.UpdateManager.WPF.Windows
         /// The text that should be displayed to the user to ask whether or not the update should be executed or not after the download has completed
         /// </summary>
         public string UpdateNowText { get; set; }
+
+        /// <summary>
+        /// Gets or sets whether the built-in downloading functionality should be used
+        /// </summary>
+        public bool UseDownloader { get; set; } = true;
         #endregion
 
         /// <inheritdoc />
@@ -146,9 +151,24 @@ namespace CodeDead.UpdateManager.WPF.Windows
         /// <param name="e">The RoutedEventArgs</param>
         private void BtnDownload_OnClick(object sender, RoutedEventArgs e)
         {
+            if (!UseDownloader)
+            {
+                try
+                {
+                    System.Diagnostics.Process.Start(DownloadUrl);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, Title, MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                
+                Close();
+                return;
+            }
+
+            SaveFileDialog sfd = new SaveFileDialog();
             try
             {
-                SaveFileDialog sfd = new SaveFileDialog();
                 string extension = DownloadUrl.Substring(DownloadUrl.Length - 3);
                 string filter = extension.ToUpper() + " file (*." + extension + ")|*." + extension;
                 sfd.Filter = filter;
