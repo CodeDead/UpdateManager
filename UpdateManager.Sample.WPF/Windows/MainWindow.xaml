@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="UpdateManager WPF Sample" Height="450" Width="800">
     <Grid>
         <Button Content="Check for updates" Click="UpdateButton_Click" />
     </Grid>

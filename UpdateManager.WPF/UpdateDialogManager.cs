@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows;
 using CodeDead.UpdateManager.Objects;
 using CodeDead.UpdateManager.WPF.Objects;
 using CodeDead.UpdateManager.WPF.Windows;
@@ -44,6 +45,26 @@ namespace CodeDead.UpdateManager.WPF
             set => _stringVariables = value ?? throw new ArgumentNullException(nameof(value));
         }
 
+        /// <summary>
+        /// Gets or sets whether the information button should be displayed
+        /// </summary>
+        public bool ShowInformationButton { get; set; } = true;
+
+        /// <summary>
+        /// Gets or sets whether the cancel button should be displayed
+        /// </summary>
+        public bool ShowCancelButton { get; set; } = true;
+
+        /// <summary>
+        /// Gets or sets whether the download button should be displayed
+        /// </summary>
+        public bool ShowDownloadButton { get; set; } = true;
+
+        /// <summary>
+        /// Gets or sets whether the built-in downloading functionality should be used
+        /// </summary>
+        public bool UseDownloader { get; set; } = true;
+
         #endregion
 
         /// <summary>
@@ -63,8 +84,30 @@ namespace CodeDead.UpdateManager.WPF
                 DownloadButtonContent = StringVariables.DownloadButtonText,
                 DownloadUrl = applicationUpdate.UpdateUrl,
                 InformationUrl = applicationUpdate.InfoUrl,
-                UpdateNowText = StringVariables.UpdateNowText
+                UpdateNowText = StringVariables.UpdateNowText,
+                UseDownloader = UseDownloader
             };
+
+            if (!ShowCancelButton && !ShowDownloadButton && !ShowInformationButton)
+            {
+                window.GrdButtons.Visibility = Visibility.Collapsed;
+            }
+
+            if (!ShowCancelButton)
+            {
+                window.BtnCancel.Visibility = Visibility.Collapsed;
+            }
+
+            if (!ShowDownloadButton)
+            {
+                window.BtnDownload.Visibility = Visibility.Collapsed;
+            }
+
+            if (!ShowInformationButton)
+            {
+                window.BtnInformation.Visibility = Visibility.Collapsed;
+            }
+
             window.ShowDialog();
         }
     }
