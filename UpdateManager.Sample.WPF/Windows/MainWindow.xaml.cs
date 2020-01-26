@@ -1,10 +1,11 @@
-﻿using System.Windows;
+﻿using System.Reflection;
+using System.Windows;
 using CodeDead.UpdateManager;
-using CodeDead.UpdateManager.Classes;
 using CodeDead.UpdateManager.Objects;
-using CodeDead.UpdateManager.WPF.Classes;
+using CodeDead.UpdateManager.WPF;
+using CodeDead.UpdateManager.WPF.Objects;
 
-namespace UpdateManager.Sample.WPF
+namespace UpdateManager.Sample.WPF.Windows
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -35,7 +36,6 @@ namespace UpdateManager.Sample.WPF
                 CancelButtonText = "Cancel",
                 DownloadButtonText = "Download",
                 InformationButtonText = "Information",
-                NoNewVersionText = "You are running the latest version!",
                 TitleText = "UpdateManager Sample",
                 UpdateNowText = "Would you like to update to the latest version now?"
             };
@@ -49,7 +49,10 @@ namespace UpdateManager.Sample.WPF
             Update update = await updateManager.GetLatestVersionAsync();
 
             // Display an update dialog, if applicable
-            new UpdateDialogManager(stringVariables, true).DisplayUpdateDialog(update);
+            if (update.UpdateAvailable(Assembly.GetExecutingAssembly().GetName().Version))
+            {
+                new UpdateDialogManager(stringVariables).DisplayUpdateDialog(update);
+            }
         }
     }
 }

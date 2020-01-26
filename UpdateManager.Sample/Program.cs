@@ -1,6 +1,5 @@
 ﻿using System;
 using CodeDead.UpdateManager;
-using CodeDead.UpdateManager.Classes;
 using CodeDead.UpdateManager.Objects;
 
 namespace UpdateManager.Sample

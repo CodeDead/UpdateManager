@@ -91,6 +91,16 @@ namespace CodeDead.UpdateManager
             set => _currentPlatform = value ?? throw new ArgumentNullException(nameof(value));
         }
 
+        /// <summary>
+        /// Gets or sets the IWebProxy that can be used to retrieve data
+        /// </summary>
+        public IWebProxy WebProxy { get; set; }
+
+        /// <summary>
+        /// Gets or sets the WebHeaderCollection that can be used to retrieve data
+        /// </summary>
+        public WebHeaderCollection WebClientHeaders { get; set; }
+
         #endregion
 
         /// <summary>
@@ -105,7 +115,15 @@ namespace CodeDead.UpdateManager
             if (CurrentPlatform == null) throw new ArgumentNullException(nameof(CurrentPlatform));
             if (CurrentPlatform.Length == 0) throw new ArgumentException(nameof(CurrentPlatform));
 
-            string data = new WebClient().DownloadString(UpdateUrl);
+            string data;
+            using (WebClient wc = new WebClient())
+            {
+                wc.Proxy = WebProxy;
+                wc.Headers = WebClientHeaders;
+
+                data = wc.DownloadString(UpdateUrl);
+            }
+
             PlatformUpdates updates;
 
             // ReSharper disable once SwitchStatementHandlesSomeKnownEnumValuesWithDefault
@@ -137,7 +155,15 @@ namespace CodeDead.UpdateManager
             if (UpdateUrl == null) throw new ArgumentNullException(nameof(UpdateUrl));
             if (UpdateUrl.Length == 0) throw new ArgumentException(nameof(UpdateUrl));
 
-            string data = await new WebClient().DownloadStringTaskAsync(UpdateUrl);
+            string data;
+            using (WebClient wc = new WebClient())
+            {
+                wc.Proxy = WebProxy;
+                wc.Headers = WebClientHeaders;
+
+                data = await wc.DownloadStringTaskAsync(UpdateUrl);
+            }
+
             PlatformUpdates updates;
 
             // ReSharper disable once SwitchStatementHandlesSomeKnownEnumValuesWithDefault

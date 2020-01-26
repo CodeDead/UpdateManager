@@ -30,6 +30,7 @@ try
 {
   // Retrieve the latest Update object from the remote location
   Update update = updateManager.GetLatestVersion();
+  bool updateAvailable = update.UpdateAvailable(Assembly.GetExecutingAssembly().GetName().Version);
 }
 catch (Exception ex)
 {
@@ -55,13 +56,32 @@ updateManager.DataType = DataType.Xml;
 ### JSON Update example
 ```JSON
 {
-	"MajorVersion": 1,
-	"MinorVersion": 0,
-	"BuildVersion": 0,
-	"RevisionVersion": 0,
-	"UpdateUrl": "https://codedead.com/update.exe",
-	"InfoUrl": "https://codedead.com",
-	"UpdateInfo": "A new version is now available. Please click the download button to download version 1.0.0.0"
+  "UpdatePlatformList": [
+    {
+      "PlatformName": "win32",
+      "Update": {
+        "MajorVersion": 2,
+        "MinorVersion": 0,
+        "BuildVersion": 0,
+        "RevisionVersion": 0,
+        "UpdateUrl": "https://codedead.com/example.exe",
+        "InfoUrl": "https://codedead.com",
+        "UpdateInfo": "A new version is now available.\nPlease click the download button to download version 2.0.0.0"
+      }
+    },
+    {
+      "PlatformName": "linux",
+      "Update": {
+        "MajorVersion": 2,
+        "MinorVersion": 0,
+        "BuildVersion": 0,
+        "RevisionVersion": 0,
+        "UpdateUrl": "https://codedead.com/example.exe",
+        "InfoUrl": "https://codedead.com",
+        "UpdateInfo": "A new version is now available.\nPlease click the download button to download version 2.0.0.0"
+      }
+    }
+  ]
 }
 ```
 
