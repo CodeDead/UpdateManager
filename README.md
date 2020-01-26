@@ -5,7 +5,7 @@ This library can be used to check for application updates. It is designed for WP
 In order to use it, you require an XML or JSON file on a remote or local server that represents the Update class.
 
 ## Dependencies
-* [.NET Framework 4.8](https://dotnet.microsoft.com/download/dotnet-framework/net48)
+* .NET Standard 2.0
 
 ## Usage
 UpdateManager is available as a [NuGet package](https://www.nuget.org/packages/CodeDead.UpdateManager/). You can find it here:  

@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Net;
 using System.Threading.Tasks;
-using System.Windows;
 using CodeDead.UpdateManager.Classes.Utils;
-using CodeDead.UpdateManager.Windows;
 
 namespace CodeDead.UpdateManager.Classes
 {
@@ -24,11 +22,6 @@ namespace CodeDead.UpdateManager.Classes
         /// </summary>
         private Version _applicationVersion;
 
-        /// <summary>
-        /// The string variables that can be used to display information to the user
-        /// </summary>
-        private StringVariables _stringVariables;
-
         #endregion
 
         /// <summary>
@@ -36,44 +29,11 @@ namespace CodeDead.UpdateManager.Classes
         /// </summary>
         public UpdateManager()
         {
-            StringVariables = new StringVariables();
+            // Empty constructor
         }
 
         /// <summary>
         /// Initiate a new UpdateManager object
-        /// </summary>
-        /// <param name="version">Your application version</param>
-        /// <param name="updateUrl">The URL where your XML update file is located</param>
-        /// <param name="stringVariables">StringVariables object containing strings that can be used to display information to the user</param>
-        /// <param name="dataType">The DataType that can be used to deserialize the update information</param>
-        public UpdateManager(Version version, string updateUrl, StringVariables stringVariables, DataType dataType)
-        {
-            UpdateUrl = updateUrl;
-            DataType = dataType;
-            ApplicationVersion = new Version(version.Major, version.Minor, version.Build, version.Revision);
-            StringVariables = stringVariables;
-        }
-
-        /// <summary>
-        /// Initiate a new UpdateManager object
-        /// </summary>
-        /// <param name="version">Your application version</param>
-        /// <param name="updateUrl">The URL where your XML update file is located</param>
-        /// <param name="stringVariables">StringVariables object containing strings that can be used to display information to the user</param>
-        /// <param name="dataType">The DataType that can be used to deserialize the update information</param>
-        /// <param name="showNoUpdates">Sets whether a dialog should be displayed when no updates are available</param>
-        public UpdateManager(Version version, string updateUrl, StringVariables stringVariables, DataType dataType,
-            bool showNoUpdates)
-        {
-            UpdateUrl = updateUrl;
-            DataType = dataType;
-            ApplicationVersion = new Version(version.Major, version.Minor, version.Build, version.Revision);
-            StringVariables = stringVariables;
-            ShowNoUpdates = showNoUpdates;
-        }
-
-        /// <summary>
-        /// Initialize a new UpdateManager object
         /// </summary>
         /// <param name="version">Your application version</param>
         /// <param name="updateUrl">The URL where your XML update file is located</param>
@@ -83,7 +43,21 @@ namespace CodeDead.UpdateManager.Classes
             UpdateUrl = updateUrl;
             DataType = dataType;
             ApplicationVersion = new Version(version.Major, version.Minor, version.Build, version.Revision);
-            StringVariables = new StringVariables();
+        }
+
+        /// <summary>
+        /// Initiate a new UpdateManager object
+        /// </summary>
+        /// <param name="version">Your application version</param>
+        /// <param name="updateUrl">The URL where your XML update file is located</param>
+        /// <param name="dataType">The DataType that can be used to deserialize the update information</param>
+        /// <param name="showNoUpdates">Sets whether a dialog should be displayed when no updates are available</param>
+        public UpdateManager(Version version, string updateUrl, DataType dataType, bool showNoUpdates)
+        {
+            UpdateUrl = updateUrl;
+            DataType = dataType;
+            ApplicationVersion = new Version(version.Major, version.Minor, version.Build, version.Revision);
+            ShowNoUpdates = showNoUpdates;
         }
 
         #region Properties
@@ -115,15 +89,6 @@ namespace CodeDead.UpdateManager.Classes
         /// Gets or sets whether a dialog should be displayed when no updates are available
         /// </summary>
         public bool ShowNoUpdates { get; set; } = true;
-
-        /// <summary>
-        /// Gets or sets the StringVariables object that contains translations
-        /// </summary>
-        public StringVariables StringVariables
-        {
-            get => _stringVariables;
-            set => _stringVariables = value ?? throw new ArgumentNullException(nameof(value));
-        }
 
         #endregion
 
@@ -175,39 +140,6 @@ namespace CodeDead.UpdateManager.Classes
             }
 
             return update;
-        }
-
-        /// <summary>
-        /// Display an update dialog, if applicable
-        /// </summary>
-        /// <param name="applicationUpdate">The Update that contains the latest information regarding the version</param>
-        public void DisplayUpdateDialog(Update applicationUpdate)
-        {
-            if (applicationUpdate == null) throw new ArgumentNullException(nameof(applicationUpdate));
-
-            if (applicationUpdate.CheckForUpdate())
-            {
-                UpdateWindow window = new UpdateWindow
-                {
-                    Title = _stringVariables.TitleText,
-                    InformationTextBlockContent = applicationUpdate.UpdateInfo,
-                    InformationButtonContent = _stringVariables.InformationButtonText,
-                    CancelButtonContent = _stringVariables.CancelButtonText,
-                    DownloadButtonContent = _stringVariables.DownloadButtonText,
-                    DownloadUrl = applicationUpdate.UpdateUrl,
-                    InformationUrl = applicationUpdate.InfoUrl,
-                    UpdateNowText = _stringVariables.UpdateNowText
-                };
-                window.ShowDialog();
-            }
-            else
-            {
-                if (ShowNoUpdates)
-                {
-                    MessageBox.Show(_stringVariables.NoNewVersionText, _stringVariables.TitleText, MessageBoxButton.OK,
-                        MessageBoxImage.Information);
-                }
-            }
         }
     }
 }

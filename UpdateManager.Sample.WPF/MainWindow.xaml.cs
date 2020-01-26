@@ -1,13 +1,14 @@
 ﻿using System.Reflection;
 using System.Windows;
 using CodeDead.UpdateManager.Classes;
+using CodeDead.UpdateManager.WPF.Classes;
 
 namespace UpdateManager.Sample.WPF
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
         /// <summary>
         /// Initialize a new MainWindow
@@ -47,14 +48,12 @@ namespace UpdateManager.Sample.WPF
             updateManager.UpdateUrl = "https://codedead.com/Software/PK%20Finder/update.json";
             // Set that a message should be displayed if no updates are available
             updateManager.ShowNoUpdates = true;
-            // Set the StringVariables object
-            updateManager.StringVariables = stringVariables;
 
             // Retrieve the latest Update object from the remote location asynchronously
             Update update = await updateManager.GetLatestVersionAsync();
 
             // Display an update dialog, if applicable
-            updateManager.DisplayUpdateDialog(update);
+            new UpdateDialogManager(stringVariables, true).DisplayUpdateDialog(update);
         }
     }
 }

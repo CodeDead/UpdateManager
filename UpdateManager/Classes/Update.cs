@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Web.Script.Serialization;
 using System.Xml.Serialization;
+using Newtonsoft.Json;
 
 namespace CodeDead.UpdateManager.Classes
 {
@@ -9,7 +9,7 @@ namespace CodeDead.UpdateManager.Classes
     /// </summary>
     public sealed class Update
     {
-        #region XML_Update
+        #region Variables
 
         /// <summary>
         /// The major version of the most current update
@@ -46,14 +46,12 @@ namespace CodeDead.UpdateManager.Classes
         /// </summary>
         public string UpdateInfo;
 
-        #endregion
-
-        #region Assigned_Variables
-
         /// <summary>
         /// The current application version
         /// </summary>
-        [XmlIgnore] [ScriptIgnore] private Version _applicationVersion;
+        [XmlIgnore]
+        [JsonIgnore]
+        private Version _applicationVersion;
 
         #endregion
 
@@ -63,7 +61,7 @@ namespace CodeDead.UpdateManager.Classes
         /// Gets or sets the current application version
         /// </summary>
         [XmlIgnore]
-        [ScriptIgnore]
+        [JsonIgnore]
         public Version ApplicationVersion
         {
             get => _applicationVersion;

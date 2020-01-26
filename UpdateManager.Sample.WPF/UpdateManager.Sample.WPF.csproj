@@ -91,8 +91,12 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UpdateManager\UpdateManager.csproj">
-      <Project>{4e804ead-446a-47cc-b231-0a6255b867a3}</Project>
+      <Project>{2a14f99d-81a1-432d-80da-6471eda85aaa}</Project>
       <Name>UpdateManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UpdateManager.WPF\UpdateManager.WPF.csproj">
+      <Project>{60ea74ad-ae82-4259-ba77-780c4bf9527d}</Project>
+      <Name>UpdateManager.WPF</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -4,11 +4,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("UpdateManager")]
-[assembly: AssemblyDescription("UpdateManager")]
+[assembly: AssemblyTitle("UpdateManager.WPF")]
+[assembly: AssemblyDescription("UpdateManager.WPF")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("CodeDead")]
-[assembly: AssemblyProduct("UpdateManager")]
+[assembly: AssemblyProduct("UpdateManager.WPF")]
 [assembly: AssemblyCopyright("Copyright © 2020 CodeDead")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -19,7 +19,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("4e804ead-446a-47cc-b231-0a6255b867a3")]
+[assembly: Guid("60ea74ad-ae82-4259-ba77-780c4bf9527d")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -31,5 +31,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.6.0.0")]
-[assembly: AssemblyFileVersion("1.6.0.0")]
+[assembly: AssemblyVersion("1.0.0.0")]
+[assembly: AssemblyFileVersion("1.0.0.0")]

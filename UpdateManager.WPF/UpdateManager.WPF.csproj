@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D03650D7-39E3-4424-88FB-9B537DC2B98A}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>UpdateManager.Sample</RootNamespace>
-    <AssemblyName>UpdateManager.Sample</AssemblyName>
+    <ProjectGuid>{60EA74AD-AE82-4259-BA77-780C4BF9527D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>CodeDead.UpdateManager.WPF</RootNamespace>
+    <AssemblyName>CodeDead.UpdateManager.WPF</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -25,20 +25,32 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
+    <DebugType>none</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="Classes\StringVariables.cs" />
+    <Compile Include="Classes\UpdateDialogManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Windows\UpdateWindow.xaml.cs">
+      <DependentUpon>UpdateWindow.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -48,10 +60,12 @@
       <Project>{2a14f99d-81a1-432d-80da-6471eda85aaa}</Project>
       <Name>UpdateManager</Name>
     </ProjectReference>
-    <ProjectReference Include="..\UpdateManager.WPF\UpdateManager.WPF.csproj">
-      <Project>{60ea74ad-ae82-4259-ba77-780c4bf9527d}</Project>
-      <Name>UpdateManager.WPF</Name>
-    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Windows\UpdateWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
