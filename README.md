@@ -2,7 +2,7 @@
   <img src="https://codedead.com/Software/UpdateManager/logo.png">
 </p>
 
-# UpdateManager ![NuGet](https://img.shields.io/nuget/v/CodeDead.UpdateManager) [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://codedead.com/?page_id=302)
+# UpdateManager [![NuGet](https://img.shields.io/nuget/v/CodeDead.UpdateManager)](https://www.nuget.org/packages/CodeDead.UpdateManager/) [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://codedead.com/?page_id=302)
 This library can be used to check for application updates. It is designed for WPF and Windows Forms applications.
 In order to use it, you require an XML or JSON file on a remote or local server that represents the Update class.
 
