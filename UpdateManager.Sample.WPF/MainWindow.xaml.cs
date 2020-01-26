@@ -1,6 +1,7 @@
-﻿using System.Reflection;
-using System.Windows;
+﻿using System.Windows;
+using CodeDead.UpdateManager;
 using CodeDead.UpdateManager.Classes;
+using CodeDead.UpdateManager.Objects;
 using CodeDead.UpdateManager.WPF.Classes;
 
 namespace UpdateManager.Sample.WPF
@@ -26,7 +27,7 @@ namespace UpdateManager.Sample.WPF
         private async void UpdateButton_Click(object sender, RoutedEventArgs e)
         {
             // Initialize a new UpdateManager object
-            CodeDead.UpdateManager.Classes.UpdateManager updateManager = new CodeDead.UpdateManager.Classes.UpdateManager();
+            CodeDead.UpdateManager.UpdateManager updateManager = new CodeDead.UpdateManager.UpdateManager();
 
             // Initialize and set the StringVariables that can be used by the dialog functionality
             StringVariables stringVariables = new StringVariables
@@ -39,15 +40,10 @@ namespace UpdateManager.Sample.WPF
                 UpdateNowText = "Would you like to update to the latest version now?"
             };
 
-            // Automatically get the current application's version by utilizing
-            updateManager.ApplicationVersion = Assembly.GetExecutingAssembly().GetName().Version;
-
             // Set the data type of the remote Update object representation
             updateManager.DataType = DataType.Json;
             // Set the remote address where the Update object representation is located
-            updateManager.UpdateUrl = "https://codedead.com/Software/PK%20Finder/update.json";
-            // Set that a message should be displayed if no updates are available
-            updateManager.ShowNoUpdates = true;
+            updateManager.UpdateUrl = "https://codedead.com/Software/UpdateManager/example.json";
 
             // Retrieve the latest Update object from the remote location asynchronously
             Update update = await updateManager.GetLatestVersionAsync();

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using CodeDead.UpdateManager.Classes;
+using CodeDead.UpdateManager.Objects;
 using CodeDead.UpdateManager.WPF.Windows;
 
 namespace CodeDead.UpdateManager.WPF.Classes

@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Net;
 using System.Threading.Tasks;
-using CodeDead.UpdateManager.Classes.Utils;
+using CodeDead.UpdateManager.Objects;
+using CodeDead.UpdateManager.Utils;
 
-namespace CodeDead.UpdateManager.Classes
+namespace CodeDead.UpdateManager
 {
     /// <summary>
     /// Class that has the ability to check for software updates
@@ -18,9 +19,9 @@ namespace CodeDead.UpdateManager.Classes
         private string _updateUrl;
 
         /// <summary>
-        /// The version of the application
+        /// The current application's platform
         /// </summary>
-        private Version _applicationVersion;
+        private string _currentPlatform;
 
         #endregion
 
@@ -33,31 +34,36 @@ namespace CodeDead.UpdateManager.Classes
         }
 
         /// <summary>
-        /// Initiate a new UpdateManager object
+        /// Initialize a new UpdateManager
         /// </summary>
-        /// <param name="version">Your application version</param>
-        /// <param name="updateUrl">The URL where your XML update file is located</param>
-        /// <param name="dataType">The DataType that can be used to deserialize the update information</param>
-        public UpdateManager(Version version, string updateUrl, DataType dataType)
+        /// <param name="currentPlatform">The current application's platform</param>
+        public UpdateManager(string currentPlatform)
         {
-            UpdateUrl = updateUrl;
-            DataType = dataType;
-            ApplicationVersion = new Version(version.Major, version.Minor, version.Build, version.Revision);
+            CurrentPlatform = currentPlatform;
         }
 
         /// <summary>
-        /// Initiate a new UpdateManager object
+        /// Initialize a new UpdateManager
         /// </summary>
-        /// <param name="version">Your application version</param>
-        /// <param name="updateUrl">The URL where your XML update file is located</param>
-        /// <param name="dataType">The DataType that can be used to deserialize the update information</param>
-        /// <param name="showNoUpdates">Sets whether a dialog should be displayed when no updates are available</param>
-        public UpdateManager(Version version, string updateUrl, DataType dataType, bool showNoUpdates)
+        /// <param name="currentPlatform">The current application's platform</param>
+        /// <param name="updateUrl">The URL of the remote location where the PlatformUpdates can be retrieved</param>
+        public UpdateManager(string currentPlatform, string updateUrl)
         {
+            CurrentPlatform = currentPlatform;
+            UpdateUrl = updateUrl;
+        }
+
+        /// <summary>
+        /// Initialize a new UpdateManager
+        /// </summary>
+        /// <param name="currentPlatform">The current application's platform</param>
+        /// <param name="updateUrl">The URL of the remote location where the PlatformUpdates can be retrieved</param>
+        /// <param name="dataType">The DataType that can be used to deserialize the update information</param>
+        public UpdateManager(string currentPlatform, string updateUrl, DataType dataType)
+        {
+            CurrentPlatform = currentPlatform;
             UpdateUrl = updateUrl;
             DataType = dataType;
-            ApplicationVersion = new Version(version.Major, version.Minor, version.Build, version.Revision);
-            ShowNoUpdates = showNoUpdates;
         }
 
         #region Properties
@@ -77,67 +83,85 @@ namespace CodeDead.UpdateManager.Classes
         }
 
         /// <summary>
-        /// Gets or sets the local version of the application
+        /// Gets or sets the current platform
         /// </summary>
-        public Version ApplicationVersion
+        public string CurrentPlatform
         {
-            get => _applicationVersion;
-            set => _applicationVersion = value ?? throw new ArgumentNullException(nameof(value));
+            get => _currentPlatform;
+            set => _currentPlatform = value ?? throw new ArgumentNullException(nameof(value));
         }
-
-        /// <summary>
-        /// Gets or sets whether a dialog should be displayed when no updates are available
-        /// </summary>
-        public bool ShowNoUpdates { get; set; } = true;
 
         #endregion
 
         /// <summary>
         /// Retrieve the latest Update object
         /// </summary>
+        /// <returns>The Update object that was retrieved from a remote location</returns>
         public Update GetLatestVersion()
         {
             if (UpdateUrl == null) throw new ArgumentNullException(nameof(UpdateUrl));
             if (UpdateUrl.Length == 0) throw new ArgumentException(nameof(UpdateUrl));
 
+            if (CurrentPlatform == null) throw new ArgumentNullException(nameof(CurrentPlatform));
+            if (CurrentPlatform.Length == 0) throw new ArgumentException(nameof(CurrentPlatform));
+
             string data = new WebClient().DownloadString(UpdateUrl);
-            Update update;
+            PlatformUpdates updates;
 
             // ReSharper disable once SwitchStatementHandlesSomeKnownEnumValuesWithDefault
             switch (DataType)
             {
                 default:
-                    update = UpdateDeserializer.DeserializeJson(data, ApplicationVersion);
+                    updates = PlatformUpdatesDeserializer.DeserializeJson(data);
                     break;
                 case DataType.Xml:
-                    update = UpdateDeserializer.DeserializeXml(data, ApplicationVersion);
+                    updates = PlatformUpdatesDeserializer.DeserializeXml(data);
                     break;
             }
 
-            return update;
+            foreach (PlatformUpdate platformUpdate in updates.UpdatePlatformList)
+            {
+                if (platformUpdate.PlatformName == CurrentPlatform)
+                    return platformUpdate.Update;
+            }
+
+            return null;
         }
 
         /// <summary>
         /// Asynchronously retrieve the latest Update object
         /// </summary>
+        /// <returns>The Update object that was retrieved from a remote location</returns>
         public async Task<Update> GetLatestVersionAsync()
         {
             if (UpdateUrl == null) throw new ArgumentNullException(nameof(UpdateUrl));
             if (UpdateUrl.Length == 0) throw new ArgumentException(nameof(UpdateUrl));
 
             string data = await new WebClient().DownloadStringTaskAsync(UpdateUrl);
-            Update update;
+            PlatformUpdates updates;
 
             // ReSharper disable once SwitchStatementHandlesSomeKnownEnumValuesWithDefault
             switch (DataType)
             {
                 default:
-                    update = await UpdateDeserializer.DeserializeJsonAsync(data, ApplicationVersion);
+                    updates = await PlatformUpdatesDeserializer.DeserializeJsonAsync(data);
                     break;
                 case DataType.Xml:
-                    update = await UpdateDeserializer.DeserializeXmlAsync(data, ApplicationVersion);
+                    updates = await PlatformUpdatesDeserializer.DeserializeXmlAsync(data);
                     break;
             }
+
+            Update update = null;
+
+            await Task.Run(() =>
+            {
+                foreach (PlatformUpdate platformUpdate in updates.UpdatePlatformList)
+                {
+                    if (platformUpdate.PlatformName != CurrentPlatform) continue;
+                    update = platformUpdate.Update;
+                    break;
+                }
+            });
 
             return update;
         }
