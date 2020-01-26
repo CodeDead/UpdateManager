@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 using System.Windows;
 using CodeDead.UpdateManager;
 using CodeDead.UpdateManager.Objects;
@@ -45,13 +46,20 @@ namespace UpdateManager.Sample.WPF.Windows
             // Set the remote address where the Update object representation is located
             updateManager.UpdateUrl = "https://codedead.com/Software/UpdateManager/example.json";
 
-            // Retrieve the latest Update object from the remote location asynchronously
-            Update update = await updateManager.GetLatestVersionAsync();
-
-            // Display an update dialog, if applicable
-            if (update.UpdateAvailable(Assembly.GetExecutingAssembly().GetName().Version))
+            try
             {
-                new UpdateDialogManager(stringVariables).DisplayUpdateDialog(update);
+                // Retrieve the latest Update object from the remote location asynchronously
+                Update update = await updateManager.GetLatestVersionAsync();
+
+                // Display an update dialog, if applicable
+                if (update.UpdateAvailable(Assembly.GetExecutingAssembly().GetName().Version))
+                {
+                    new UpdateDialogManager(stringVariables).DisplayUpdateDialog(update);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "UpdateManager WPF Sample", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

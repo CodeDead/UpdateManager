@@ -21,11 +21,18 @@ namespace UpdateManager.Sample
             // Set the remote address where the Update object representation is located
             updateManager.UpdateUrl = "https://codedead.com/Software/UpdateManager/example.json";
 
-            // Retrieve the latest Update object from the remote location
-            Update update = updateManager.GetLatestVersion();
-
-            // Alternatively, you can automatically get the current application's version by utilizing Assembly.GetExecutingAssembly().GetName().Version;
-            Console.WriteLine("Update available: " + update.UpdateAvailable(new Version(1,0,0,0)));
+            try
+            {
+                // Retrieve the latest Update object from the remote location
+                Update update = updateManager.GetLatestVersion();
+                // Alternatively, you can automatically get the current application's version by utilizing Assembly.GetExecutingAssembly().GetName().Version;
+                Console.WriteLine("Update available: " + update.UpdateAvailable(new Version(1, 0, 0, 0)));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            
             Console.ReadLine();
         }
     }

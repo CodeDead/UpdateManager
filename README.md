@@ -7,13 +7,23 @@ In order to use it, you require an XML or JSON file on a remote or local server 
 ## Dependencies
 * .NET Standard 2.0
 
-## Usage
-UpdateManager is available as a [NuGet package](https://www.nuget.org/packages/CodeDead.UpdateManager/). You can find it here:  
-https://www.nuget.org/packages/CodeDead.UpdateManager/
+## Sample projects
 
 Sample projects can be found here:  
 https://github.com/CodeDead/UpdateManager/tree/master/UpdateManager.Sample  
 https://github.com/CodeDead/UpdateManager/tree/master/UpdateManager.Sample.WPF
+
+## Usage
+UpdateManager is available as a [NuGet package](https://www.nuget.org/packages/CodeDead.UpdateManager/). You can find it here:  
+https://www.nuget.org/packages/CodeDead.UpdateManager/
+
+```NuGet
+Install-Package CodeDead.UpdateManager
+```
+
+```CLI
+dotnet add package CodeDead.UpdateManager
+```
 
 Create a new *UpdateManager* object like this:
 ```C#
@@ -26,17 +36,12 @@ UpdateManager updateManager = new UpdateManager();
 
 You can check for updates like this:
 ```C#
-try
-{
-  // Retrieve the latest Update object from the remote location
-  Update update = updateManager.GetLatestVersion();
-  bool updateAvailable = update.UpdateAvailable(Assembly.GetExecutingAssembly().GetName().Version);
-}
-catch (Exception ex)
-{
-  MessageBox.Show(ex.Message, "Application title", MessageBoxButton.OK, MessageBoxImage.Error);
-}
+// Retrieve the latest Update object from the remote location
+Update update = updateManager.GetLatestVersion();
+// Check if an update is available
+bool updateAvailable = update.UpdateAvailable(Assembly.GetExecutingAssembly().GetName().Version);
 ```
+
 ## Update types
 Updates can be stored and parsed in two different formats: *JSON* or *XML*. By default, the *DataType* property will be set to *Json*. You can change the *DataType* property by setting the appropriate property on the *UpdateManager* object:
 ```C#
