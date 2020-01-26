@@ -43,6 +43,8 @@ namespace UpdateManager.Sample.WPF.Windows
 
             // Set the data type of the remote Update object representation
             updateManager.DataType = DataType.Json;
+            // Set the current platform
+            updateManager.CurrentPlatform = "win32";
             // Set the remote address where the Update object representation is located
             updateManager.UpdateUrl = "https://codedead.com/Software/UpdateManager/example.json";
 

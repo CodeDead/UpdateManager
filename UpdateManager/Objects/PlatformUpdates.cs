@@ -10,7 +10,7 @@ namespace CodeDead.UpdateManager.Objects
     {
         #region Variables
         
-        private List<PlatformUpdate> _updatePlatformList;
+        private List<PlatformUpdate> _platformUpdateList;
 
         #endregion
 
@@ -19,16 +19,16 @@ namespace CodeDead.UpdateManager.Objects
         /// </summary>
         public PlatformUpdates()
         {
-            UpdatePlatformList = new List<PlatformUpdate>();
+            PlatformUpdateList = new List<PlatformUpdate>();
         }
 
         /// <summary>
         /// Initialize a new PlatformUpdates object
         /// </summary>
-        /// <param name="updatePlatformList">The list of PlatformUpdate objects</param>
-        public PlatformUpdates(List<PlatformUpdate> updatePlatformList)
+        /// <param name="platformUpdateList">The list of PlatformUpdate objects</param>
+        public PlatformUpdates(List<PlatformUpdate> platformUpdateList)
         {
-            UpdatePlatformList = updatePlatformList;
+            PlatformUpdateList = platformUpdateList;
         }
 
         #region Properties
@@ -36,10 +36,10 @@ namespace CodeDead.UpdateManager.Objects
         /// <summary>
         /// Gets or sets the list of platforms for which there are updates
         /// </summary>
-        public List<PlatformUpdate> UpdatePlatformList
+        public List<PlatformUpdate> PlatformUpdateList
         {
-            get => _updatePlatformList;
-            set => _updatePlatformList = value ?? throw new ArgumentNullException(nameof(value));
+            get => _platformUpdateList;
+            set => _platformUpdateList = value ?? throw new ArgumentNullException(nameof(value));
         }
 
         #endregion

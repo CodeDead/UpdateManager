@@ -104,16 +104,13 @@ namespace CodeDead.UpdateManager
         #endregion
 
         /// <summary>
-        /// Retrieve the latest Update object
+        /// Retrieve the latest PlatformUpdates object
         /// </summary>
-        /// <returns>The Update object that was retrieved from a remote location</returns>
-        public Update GetLatestVersion()
+        /// <returns>The PlatformUpdates object that was retrieved from a remote location</returns>
+        public PlatformUpdates GetLatestVersions()
         {
             if (UpdateUrl == null) throw new ArgumentNullException(nameof(UpdateUrl));
             if (UpdateUrl.Length == 0) throw new ArgumentException(nameof(UpdateUrl));
-
-            if (CurrentPlatform == null) throw new ArgumentNullException(nameof(CurrentPlatform));
-            if (CurrentPlatform.Length == 0) throw new ArgumentException(nameof(CurrentPlatform));
 
             string data;
             using (WebClient wc = new WebClient())
@@ -137,20 +134,14 @@ namespace CodeDead.UpdateManager
                     break;
             }
 
-            foreach (PlatformUpdate platformUpdate in updates.UpdatePlatformList)
-            {
-                if (platformUpdate.PlatformName == CurrentPlatform)
-                    return platformUpdate.Update;
-            }
-
-            return null;
+            return updates;
         }
 
         /// <summary>
-        /// Asynchronously retrieve the latest Update object
+        /// Asynchronously retrieve the latest PlatformUpdates object
         /// </summary>
-        /// <returns>The Update object that was retrieved from a remote location</returns>
-        public async Task<Update> GetLatestVersionAsync()
+        /// <returns>The PlatformUpdates object that was retrieved from a remote location</returns>
+        public async Task<PlatformUpdates> GetLatestVersionsAsync()
         {
             if (UpdateUrl == null) throw new ArgumentNullException(nameof(UpdateUrl));
             if (UpdateUrl.Length == 0) throw new ArgumentException(nameof(UpdateUrl));
@@ -177,11 +168,44 @@ namespace CodeDead.UpdateManager
                     break;
             }
 
+            return updates;
+        }
+
+        /// <summary>
+        /// Retrieve the latest Update object
+        /// </summary>
+        /// <returns>The Update object that was retrieved from a remote location</returns>
+        public Update GetLatestVersion()
+        {
+            if (CurrentPlatform == null) throw new ArgumentNullException(nameof(CurrentPlatform));
+            if (CurrentPlatform.Length == 0) throw new ArgumentException(nameof(CurrentPlatform));
+
+            PlatformUpdates updates = GetLatestVersions();
+
+            foreach (PlatformUpdate platformUpdate in updates.PlatformUpdateList)
+            {
+                if (platformUpdate.PlatformName == CurrentPlatform)
+                    return platformUpdate.Update;
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Asynchronously retrieve the latest Update object
+        /// </summary>
+        /// <returns>The Update object that was retrieved from a remote location</returns>
+        public async Task<Update> GetLatestVersionAsync()
+        {
+            if (CurrentPlatform == null) throw new ArgumentNullException(nameof(CurrentPlatform));
+            if (CurrentPlatform.Length == 0) throw new ArgumentException(nameof(CurrentPlatform));
+
+            PlatformUpdates updates = await GetLatestVersionsAsync();
             Update update = null;
 
             await Task.Run(() =>
             {
-                foreach (PlatformUpdate platformUpdate in updates.UpdatePlatformList)
+                foreach (PlatformUpdate platformUpdate in updates.PlatformUpdateList)
                 {
                     if (platformUpdate.PlatformName != CurrentPlatform) continue;
                     update = platformUpdate.Update;

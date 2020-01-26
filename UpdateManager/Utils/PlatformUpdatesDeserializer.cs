@@ -30,10 +30,10 @@ namespace CodeDead.UpdateManager.Utils
                 {
                     writer.Write(data);
                     writer.Flush();
-                }
 
-                stream.Position = 0;
-                updates = (PlatformUpdates)serializer.Deserialize(stream);
+                    stream.Position = 0;
+                    updates = (PlatformUpdates)serializer.Deserialize(stream);
+                }
             }
 
             return updates;
@@ -59,10 +59,10 @@ namespace CodeDead.UpdateManager.Utils
                     {
                         await writer.WriteAsync(data);
                         await writer.FlushAsync();
-                    }
 
-                    stream.Position = 0;
-                    updates = (PlatformUpdates)serializer.Deserialize(stream);
+                        stream.Position = 0;
+                        updates = (PlatformUpdates)serializer.Deserialize(stream);
+                    }
                 }
             });
             return updates;
