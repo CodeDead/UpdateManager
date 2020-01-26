@@ -23,16 +23,26 @@ Command-line:
 dotnet add package CodeDead.UpdateManager
 ```
 
-After the package has been added to your project, you can create a new *UpdateManager* object like this:
+After the package has been added to your project, you can create a new *UpdateManager* object using the default constructor:
 ```C#
-// Import statement
-using CodeDead.UpdateManager.Classes;
-
 // Initialize a new UpdateManager object
 UpdateManager updateManager = new UpdateManager();
 ```
 
-You can check for updates by calling the *GetLatestVersion()* method of an *UpdateManager* object. An *Update* object will be returned, that you can then use to check for updates:
+It is important to set the platform of the current application. The *CurrentPlatform* property is used to determine which *Update* object is applicable to the running application:
+
+```C#
+// Set the CurrentPlatform property
+updateManager.CurrentPlatform = "win32";
+```
+
+In order to retrieve the latest version, you will also need to specify a remote location where the *PlatformUpdates* object is stored:
+```C#
+// Set the UpdateUrl property
+updateManager.UpdateUrl = "https://codedead.com/Software/UpdateManager/example.json";
+```
+
+After the *CurrentPlatform* and *UpdateUrl* properties have been set, you can check for updates by calling the *GetLatestVersion()* method of an *UpdateManager* object. An *Update* object will be returned, that you can then use to check for updates:
 ```C#
 // Retrieve the latest Update object from the remote location
 Update update = updateManager.GetLatestVersion();
@@ -45,15 +55,11 @@ bool updateAvailable = update.UpdateAvailable(Assembly.GetExecutingAssembly().Ge
   
 A *PlatformUpdates* object can be stored and parsed in two different formats: *JSON* or *XML*. By default, the *DataType* property will be set to *Json*. You can change the *DataType* property by setting the appropriate property on the *UpdateManager* object:
 ```C#
-// Initialize a new UpdateManager object
-UpdateManager updateManager = new UpdateManager();
 // Set the data type of the remote Update object representation
 updateManager.DataType = DataType.Json;
 ```
 
 ```C#
-// Initialize a new UpdateManager object
-UpdateManager updateManager = new UpdateManager();
 // Set the data type of the remote Update object representation
 updateManager.DataType = DataType.Xml;
 ```
