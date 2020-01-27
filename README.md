@@ -6,16 +6,13 @@
 This library can be used to check for application updates. It is designed for WPF and Windows Forms applications.
 In order to use it, you require an XML or JSON file on a remote or local server that represents the Update class.
 
-### Dependencies
-* .NET Standard 2.0
-
 ## Sample projects
 Sample projects can be found here:  
 https://github.com/CodeDead/UpdateManager/tree/master/UpdateManager.Sample  
 https://github.com/CodeDead/UpdateManager/tree/master/UpdateManager.Sample.WPF
 
 ## Usage
-UpdateManager is available as a [NuGet package](https://www.nuget.org/packages/CodeDead.UpdateManager/). You can find it here:  
+UpdateManager is available as a NuGet package. You can find it here:  
 https://www.nuget.org/packages/CodeDead.UpdateManager/
 
 You can install the package using your package manager:
@@ -29,20 +26,17 @@ dotnet add package CodeDead.UpdateManager
 
 After the package has been added to your project, you can create a new *UpdateManager* object using the default constructor:
 ```C#
-// Initialize a new UpdateManager object
 UpdateManager updateManager = new UpdateManager();
 ```
 
 It is important to set the platform of the current application. The *CurrentPlatform* property is used to determine which *Update* object is applicable to the running application:
 
 ```C#
-// Set the CurrentPlatform property
 updateManager.CurrentPlatform = "win32";
 ```
 
 In order to retrieve the latest version, you will also need to specify a remote location where the *PlatformUpdates* object is stored:
 ```C#
-// Set the UpdateUrl property
 updateManager.UpdateUrl = "https://codedead.com/Software/UpdateManager/example.json";
 ```
 
@@ -52,6 +46,42 @@ After the *CurrentPlatform* and *UpdateUrl* properties have been set, you can ch
 Update update = updateManager.GetLatestVersion(false); // Set to true to include pre-releases
 // Check if an update is available
 bool updateAvailable = update.UpdateAvailable(Assembly.GetExecutingAssembly().GetName().Version);
+```
+
+---
+
+A dialog can be displayed to the user if an update is available by installing the *CodeDead.UpdateManager.Extensions* package. This package is available for .NET Framework applications and can be installed using NuGet:
+```NuGet
+Install-Package CodeDead.UpdateManager.Extensions
+```
+Command-line:
+```CLI
+dotnet add package CodeDead.UpdateManager.Extensions
+```
+
+After the package has been added to your project, you can create a new *UpdateDialogManager* object using the default constructor:
+```C#
+UpdateDialogManager updateDialogManager = new UpdateDialogManager();
+```
+
+At this point, it is important to make sure that translations are available to the dialog for your users. You can add translations by adding them to the *StringVariables* property of an *UpdateDialogManager* object:
+```C#
+// Initialize and set the StringVariables that can be used by the dialog functionality
+StringVariables stringVariables = new StringVariables
+{
+    CancelButtonText = "Cancel",
+    DownloadButtonText = "Download",
+    InformationButtonText = "Information",
+    TitleText = "UpdateManager Sample",
+    UpdateNowText = "Would you like to update to the latest version now?"
+};
+// Set the variables to be displayed
+updateDialogManager.StringVariables = stringVariables;
+```
+
+Using an *Update* object that was retrieved using the *UpdateManager* object, you can now display an update dialog:
+```C#
+updateDialogManager.DisplayUpdateDialog(update);
 ```
 
 ## PlatformUpdates
