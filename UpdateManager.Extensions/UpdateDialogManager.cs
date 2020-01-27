@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Windows;
+using CodeDead.UpdateManager.Extensions.Objects;
 using CodeDead.UpdateManager.Objects;
-using CodeDead.UpdateManager.WPF.Objects;
-using CodeDead.UpdateManager.WPF.Windows;
+using CodeDead.UpdateManager.Extensions.Windows;
 
-namespace CodeDead.UpdateManager.WPF
+namespace CodeDead.UpdateManager.Extensions
 {
     /// <summary>
     /// Class that contains logic to display an update dialog

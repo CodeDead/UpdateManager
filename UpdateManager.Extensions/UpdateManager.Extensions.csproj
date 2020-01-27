@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{60EA74AD-AE82-4259-BA77-780C4BF9527D}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>CodeDead.UpdateManager.WPF</RootNamespace>
-    <AssemblyName>CodeDead.UpdateManager.WPF</AssemblyName>
+    <RootNamespace>CodeDead.UpdateManager.Extensions</RootNamespace>
+    <AssemblyName>CodeDead.UpdateManager.Extensions</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

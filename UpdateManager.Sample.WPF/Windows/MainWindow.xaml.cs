@@ -2,9 +2,9 @@
 using System.Reflection;
 using System.Windows;
 using CodeDead.UpdateManager;
+using CodeDead.UpdateManager.Extensions;
+using CodeDead.UpdateManager.Extensions.Objects;
 using CodeDead.UpdateManager.Objects;
-using CodeDead.UpdateManager.WPF;
-using CodeDead.UpdateManager.WPF.Objects;
 
 namespace UpdateManager.Sample.WPF.Windows
 {

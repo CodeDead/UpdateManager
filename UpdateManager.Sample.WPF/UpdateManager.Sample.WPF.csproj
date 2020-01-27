@@ -98,9 +98,9 @@
       <Project>{2a14f99d-81a1-432d-80da-6471eda85aaa}</Project>
       <Name>UpdateManager</Name>
     </ProjectReference>
-    <ProjectReference Include="..\UpdateManager.WPF\UpdateManager.WPF.csproj">
+    <ProjectReference Include="..\UpdateManager.Extensions\UpdateManager.Extensions.csproj">
       <Project>{60ea74ad-ae82-4259-ba77-780c4bf9527d}</Project>
-      <Name>UpdateManager.WPF</Name>
+      <Name>UpdateManager.Extensions</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

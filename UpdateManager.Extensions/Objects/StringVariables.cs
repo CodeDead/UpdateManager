@@ -1,4 +1,4 @@
-﻿namespace CodeDead.UpdateManager.WPF.Objects
+﻿namespace CodeDead.UpdateManager.Extensions.Objects
 {
     /// <summary>
     /// Class containing all available strings that can be displayed to the user
