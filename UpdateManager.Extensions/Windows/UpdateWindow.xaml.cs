@@ -105,6 +105,12 @@ namespace CodeDead.UpdateManager.Extensions.Windows
         /// Gets or sets whether the built-in downloading functionality should be used
         /// </summary>
         public bool UseDownloader { get; set; } = true;
+
+
+        /// <summary>
+        /// Gets or sets whether a downloaded executable should be executed as an administrator
+        /// </summary>
+        public bool ExecuteAsAdministrator { get; set; }
         #endregion
 
         /// <inheritdoc />
@@ -217,7 +223,17 @@ namespace CodeDead.UpdateManager.Extensions.Windows
             {
                 try
                 {
-                    System.Diagnostics.Process.Start(_downloadLocation);
+                    System.Diagnostics.Process proc = new System.Diagnostics.Process
+                    {
+                        StartInfo = {FileName = _downloadLocation, UseShellExecute = true}
+                    };
+
+                    if (ExecuteAsAdministrator)
+                    {
+                        proc.StartInfo.Verb = "runas";
+                    }
+                    
+                    proc.Start();
                     Application.Current.Shutdown();
                 }
                 catch (Exception ex)

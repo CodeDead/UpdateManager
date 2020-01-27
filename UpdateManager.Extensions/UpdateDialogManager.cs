@@ -65,6 +65,11 @@ namespace CodeDead.UpdateManager.Extensions
         /// </summary>
         public bool UseDownloader { get; set; } = true;
 
+        /// <summary>
+        /// Gets or sets whether a downloaded executable should be executed as an administrator
+        /// </summary>
+        public bool ExecuteAsAdministrator { get; set; }
+
         #endregion
 
         /// <summary>
@@ -85,7 +90,8 @@ namespace CodeDead.UpdateManager.Extensions
                 DownloadUrl = applicationUpdate.UpdateUrl,
                 InformationUrl = applicationUpdate.InfoUrl,
                 UpdateNowText = StringVariables.UpdateNowText,
-                UseDownloader = UseDownloader
+                UseDownloader = UseDownloader,
+                ExecuteAsAdministrator = ExecuteAsAdministrator
             };
 
             if (!ShowCancelButton && !ShowDownloadButton && !ShowInformationButton)
