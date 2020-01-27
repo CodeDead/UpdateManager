@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace CodeDead.UpdateManager.Objects
 {
@@ -12,7 +13,7 @@ namespace CodeDead.UpdateManager.Objects
         /// </summary>
         public Update()
         {
-            // Empty constructor
+            HashList = new List<FileHash>();
         }
 
         /// <summary>
@@ -28,6 +29,24 @@ namespace CodeDead.UpdateManager.Objects
             MinorVersion = minorVersion;
             BuildVersion = buildVersion;
             RevisionVersion = revisionVersion;
+            HashList = new List<FileHash>();
+        }
+
+        /// <summary>
+        /// Initialize a new Update
+        /// </summary>
+        /// <param name="majorVersion">The major version of the most current update</param>
+        /// <param name="minorVersion">The minor version of the most current update</param>
+        /// <param name="buildVersion">The build version of the most current update</param>
+        /// <param name="revisionVersion">The revision version of the most current update</param>
+        /// <param name="fileHash">The FileHash</param>
+        public Update(int majorVersion, int minorVersion, int buildVersion, int revisionVersion, List<FileHash> fileHash)
+        {
+            MajorVersion = majorVersion;
+            MinorVersion = minorVersion;
+            BuildVersion = buildVersion;
+            RevisionVersion = revisionVersion;
+            HashList = fileHash;
         }
 
         #region Properties
@@ -66,6 +85,11 @@ namespace CodeDead.UpdateManager.Objects
         /// Gets or sets the information in plain text regarding this update
         /// </summary>
         public string UpdateInfo { get; set; }
+
+        /// <summary>
+        /// Gets or sets the list of FileHash objects that correspond to this Update object
+        /// </summary>
+        public List<FileHash> HashList { get; set; }
 
         #endregion
 
