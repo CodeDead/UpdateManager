@@ -4,6 +4,20 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>CodeDead.UpdateManager</AssemblyName>
     <RootNamespace>CodeDead.UpdateManager</RootNamespace>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <Version>1.6.0</Version>
+    <Authors>CodeDead</Authors>
+    <Description>This library can be used to check for application updates. It is designed for .NET Standard 2.0 applications. In order to use it, you require an XML or JSON file on a remote or local server that represents the PlatformUpdates class.</Description>
+    <Copyright>Copyright © 2020 CodeDead</Copyright>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageIcon>codedead.png</PackageIcon>
+    <PackageIconUrl />
+    <PackageProjectUrl>https://github.com/CodeDead/UpdateManager</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/CodeDead/UpdateManager</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>CodeDead UpdateManager Update Updater updates updating downloader downloading deadline autoupdate auto-update</PackageTags>
+    <PackageReleaseNotes>Library is now .NET Standard 2.0 compliant and added support for asynchronously checking for updates</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -13,6 +27,17 @@
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="..\NuGet\codedead.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
