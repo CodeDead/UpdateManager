@@ -37,10 +37,18 @@ namespace CodeDead.UpdateManager.Objects
         /// Initialize a new PlatformUpdate
         /// </summary>
         /// <param name="update">The Update object that corresponds to the current platform</param>
-        public PlatformUpdate(Update update)
+        /// <param name="isPreRelease">Sets whether the update is a pre-release</param>
+        public PlatformUpdate(Update update, bool isPreRelease)
         {
             PlatformName = "";
-            Update = update;
+            if (isPreRelease)
+            {
+                PreRelease = update;
+            }
+            else
+            {
+                Update = update;
+            }
         }
 
         /// <summary>
@@ -48,10 +56,18 @@ namespace CodeDead.UpdateManager.Objects
         /// </summary>
         /// <param name="platformName">The name of the platform for which the update applies</param>
         /// <param name="update">The Update object that corresponds to the current platform</param>
-        public PlatformUpdate(string platformName, Update update)
+        /// <param name="isPreRelease">Sets whether the update is a pre-release</param>
+        public PlatformUpdate(string platformName, Update update, bool isPreRelease)
         {
             PlatformName = platformName;
-            Update = update;
+            if (isPreRelease)
+            {
+                PreRelease = update;
+            }
+            else
+            {
+                Update = update;
+            }
         }
 
         #region Properties
@@ -73,6 +89,11 @@ namespace CodeDead.UpdateManager.Objects
             get => _update;
             set => _update = value ?? throw new ArgumentNullException(nameof(value));
         }
+
+        /// <summary>
+        /// Gets or sets the Pre-release Update object
+        /// </summary>
+        public Update PreRelease { get; set; }
 
         #endregion
     }

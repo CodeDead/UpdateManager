@@ -51,7 +51,7 @@ namespace UpdateManager.Sample.WPF.Windows
             try
             {
                 // Retrieve the latest Update object from the remote location asynchronously
-                Update update = await updateManager.GetLatestVersionAsync();
+                Update update = await updateManager.GetLatestVersionAsync(false);
 
                 // Display an update dialog, if applicable
                 if (update.UpdateAvailable(Assembly.GetExecutingAssembly().GetName().Version))

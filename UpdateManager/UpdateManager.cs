@@ -174,46 +174,93 @@ namespace CodeDead.UpdateManager
         /// <summary>
         /// Retrieve the latest Update object
         /// </summary>
+        /// <param name="includePreRelease">Include pre-releases to retrieve the latest Update object</param>
         /// <returns>The Update object that was retrieved from a remote location</returns>
-        public Update GetLatestVersion()
+        public Update GetLatestVersion(bool includePreRelease)
         {
             if (CurrentPlatform == null) throw new ArgumentNullException(nameof(CurrentPlatform));
             if (CurrentPlatform.Length == 0) throw new ArgumentException(nameof(CurrentPlatform));
 
             PlatformUpdates updates = GetLatestVersions();
+            Update latestUpdate = GetFinalUpdate(updates);
 
-            foreach (PlatformUpdate platformUpdate in updates.PlatformUpdateList)
+            if (includePreRelease)
             {
-                if (platformUpdate.PlatformName == CurrentPlatform)
-                    return platformUpdate.Update;
+                Update preRelease = GetFinalPreRelease(updates);
+                if (preRelease.UpdateAvailable(new Version(latestUpdate.MajorVersion, latestUpdate.MinorVersion,
+                    latestUpdate.BuildVersion, latestUpdate.RevisionVersion)))
+                    return preRelease;
             }
 
-            return null;
+            return latestUpdate;
         }
 
         /// <summary>
         /// Asynchronously retrieve the latest Update object
         /// </summary>
+        /// <param name="includePreRelease">Include pre-releases to retrieve the latest Update object</param>
         /// <returns>The Update object that was retrieved from a remote location</returns>
-        public async Task<Update> GetLatestVersionAsync()
+        public async Task<Update> GetLatestVersionAsync(bool includePreRelease)
         {
             if (CurrentPlatform == null) throw new ArgumentNullException(nameof(CurrentPlatform));
             if (CurrentPlatform.Length == 0) throw new ArgumentException(nameof(CurrentPlatform));
 
             PlatformUpdates updates = await GetLatestVersionsAsync();
-            Update update = null;
+            Update latestUpdate = null;
 
-            await Task.Run(() =>
+            await Task.Run(() => { latestUpdate = GetFinalUpdate(updates); });
+
+            return latestUpdate;
+        }
+
+        /// <summary>
+        /// Retrieve the latest Update object
+        /// </summary>
+        /// <param name="platformUpdates">The PlatformUpdates object that contains a list of PlatformUpdate objects</param>
+        /// <returns>The latest Update object that corresponds to the current platform</returns>
+        private Update GetFinalUpdate(PlatformUpdates platformUpdates)
+        {
+            Update latestUpdate = null;
+            foreach (PlatformUpdate platformUpdate in platformUpdates.PlatformUpdateList)
             {
-                foreach (PlatformUpdate platformUpdate in updates.PlatformUpdateList)
+                if (platformUpdate.PlatformName != CurrentPlatform) continue;
+                if (latestUpdate != null && platformUpdate.Update.UpdateAvailable(new Version(
+                        latestUpdate.MajorVersion, latestUpdate.MinorVersion,
+                        latestUpdate.BuildVersion, latestUpdate.RevisionVersion)))
                 {
-                    if (platformUpdate.PlatformName != CurrentPlatform) continue;
-                    update = platformUpdate.Update;
-                    break;
+                    latestUpdate = platformUpdate.Update;
                 }
-            });
+                else if (latestUpdate == null)
+                {
+                    latestUpdate = platformUpdate.Update;
+                }
+            }
+            return latestUpdate;
+        }
 
-            return update;
+        /// <summary>
+        /// Retrieve the latest Update object
+        /// </summary>
+        /// <param name="platformUpdates">The PlatformUpdates object that contains a list of PlatformUpdate objects</param>
+        /// <returns>The latest Update object that corresponds to the current platform</returns>
+        private Update GetFinalPreRelease(PlatformUpdates platformUpdates)
+        {
+            Update latestUpdate = null;
+            foreach (PlatformUpdate platformUpdate in platformUpdates.PlatformUpdateList)
+            {
+                if (platformUpdate.PlatformName != CurrentPlatform) continue;
+                if (latestUpdate != null && platformUpdate.PreRelease.UpdateAvailable(new Version(
+                        latestUpdate.MajorVersion, latestUpdate.MinorVersion,
+                        latestUpdate.BuildVersion, latestUpdate.RevisionVersion)))
+                {
+                    latestUpdate = platformUpdate.PreRelease;
+                }
+                else if (latestUpdate == null)
+                {
+                    latestUpdate = platformUpdate.PreRelease;
+                }
+            }
+            return latestUpdate;
         }
     }
 }

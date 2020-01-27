@@ -24,7 +24,7 @@ namespace UpdateManager.Sample
             try
             {
                 // Retrieve the latest Update object from the remote location
-                Update update = updateManager.GetLatestVersion();
+                Update update = updateManager.GetLatestVersion(false);
                 // Alternatively, you can automatically get the current application's version by utilizing Assembly.GetExecutingAssembly().GetName().Version;
                 Console.WriteLine("Update available: " + update.UpdateAvailable(new Version(1, 0, 0, 0)));
             }

@@ -49,7 +49,7 @@ updateManager.UpdateUrl = "https://codedead.com/Software/UpdateManager/example.j
 After the *CurrentPlatform* and *UpdateUrl* properties have been set, you can check for updates by calling the *GetLatestVersion()* method of an *UpdateManager* object. An *Update* object will be returned, that you can then use to check for updates:
 ```C#
 // Retrieve the latest Update object from the remote location
-Update update = updateManager.GetLatestVersion();
+Update update = updateManager.GetLatestVersion(false); // Set to true to include pre-releases
 // Check if an update is available
 bool updateAvailable = update.UpdateAvailable(Assembly.GetExecutingAssembly().GetName().Version);
 ```
