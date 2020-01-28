@@ -70,6 +70,11 @@ namespace CodeDead.UpdateManager.Extensions.Framework
         /// </summary>
         public bool ExecuteAsAdministrator { get; set; }
 
+        /// <summary>
+        /// Gets or sets whether the appropriate file hashes should be calculated and verified after downloading an update
+        /// </summary>
+        public bool VerifyHashes { get; set; }
+
         #endregion
 
         /// <summary>
@@ -91,7 +96,9 @@ namespace CodeDead.UpdateManager.Extensions.Framework
                 InformationUrl = applicationUpdate.InfoUrl,
                 UpdateNowText = StringVariables.UpdateNowText,
                 UseDownloader = UseDownloader,
-                ExecuteAsAdministrator = ExecuteAsAdministrator
+                ExecuteAsAdministrator = ExecuteAsAdministrator,
+                CalculateHashes = VerifyHashes,
+                fileHashList = applicationUpdate.HashList
             };
 
             if (!ShowCancelButton && !ShowDownloadButton && !ShowInformationButton)

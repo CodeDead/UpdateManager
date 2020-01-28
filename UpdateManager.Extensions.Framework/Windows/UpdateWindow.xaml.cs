@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Net;
 using System.Windows;
+using CodeDead.UpdateManager.Objects;
 using Microsoft.Win32;
 
 namespace CodeDead.UpdateManager.Extensions.Framework.Windows
@@ -111,6 +113,16 @@ namespace CodeDead.UpdateManager.Extensions.Framework.Windows
         /// Gets or sets whether a downloaded executable should be executed as an administrator
         /// </summary>
         public bool ExecuteAsAdministrator { get; set; }
+
+        /// <summary>
+        /// Gets or sets whether the appropriate file hashes should be calculated and verified after downloading an update
+        /// </summary>
+        public bool VerifyHashes { get; set; }
+
+        /// <summary>
+        /// Gets or sets the list of FileHash objects that correspond to the downloaded file
+        /// </summary>
+        public List<FileHash> fileHashList { get; set; }
         #endregion
 
         /// <inheritdoc />
