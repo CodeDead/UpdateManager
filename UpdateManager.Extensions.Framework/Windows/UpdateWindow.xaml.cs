@@ -4,7 +4,7 @@ using System.Net;
 using System.Windows;
 using Microsoft.Win32;
 
-namespace CodeDead.UpdateManager.Extensions.Windows
+namespace CodeDead.UpdateManager.Extensions.Framework.Windows
 {
     /// <inheritdoc cref="Window" />
     /// <summary>

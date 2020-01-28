@@ -1,4 +1,4 @@
-﻿namespace CodeDead.UpdateManager.Extensions.Objects
+﻿namespace CodeDead.UpdateManager.Extensions.Framework.Objects
 {
     /// <summary>
     /// Class containing all available strings that can be displayed to the user

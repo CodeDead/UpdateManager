@@ -97,11 +97,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\UpdateManager.Extensions\UpdateManager.Extensions.csproj">
+    <ProjectReference Include="..\UpdateManager.Extensions.Framework\UpdateManager.Extensions.Framework.csproj">
       <Project>{60ea74ad-ae82-4259-ba77-780c4bf9527d}</Project>
-      <Name>UpdateManager.Extensions</Name>
+      <Name>UpdateManager.Extensions.Framework</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

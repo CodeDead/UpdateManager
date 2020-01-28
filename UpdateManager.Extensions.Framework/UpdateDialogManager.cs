@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Windows;
-using CodeDead.UpdateManager.Extensions.Objects;
+using CodeDead.UpdateManager.Extensions.Framework.Objects;
+using CodeDead.UpdateManager.Extensions.Framework.Windows;
 using CodeDead.UpdateManager.Objects;
-using CodeDead.UpdateManager.Extensions.Windows;
 
-namespace CodeDead.UpdateManager.Extensions
+namespace CodeDead.UpdateManager.Extensions.Framework
 {
     /// <summary>
     /// Class that contains logic to display an update dialog

@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UpdateManager.Sample.WPF", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UpdateManager", "UpdateManager\UpdateManager.csproj", "{2A14F99D-81A1-432D-80DA-6471EDA85AAA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UpdateManager.Extensions", "UpdateManager.Extensions\UpdateManager.Extensions.csproj", "{60EA74AD-AE82-4259-BA77-780C4BF9527D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UpdateManager.Extensions.Framework", "UpdateManager.Extensions.Framework\UpdateManager.Extensions.Framework.csproj", "{60EA74AD-AE82-4259-BA77-780C4BF9527D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

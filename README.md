@@ -50,13 +50,13 @@ bool updateAvailable = update.UpdateAvailable(Assembly.GetExecutingAssembly().Ge
 
 ---
 
-A dialog can be displayed to the user if an update is available by installing the *CodeDead.UpdateManager.Extensions* package. This package is available for .NET Framework applications and can be installed using NuGet:
+A dialog can be displayed to the user if an update is available by installing the *CodeDead.UpdateManager.Extensions.Framework* package. This package is available for .NET Framework applications and can be installed using NuGet:
 ```NuGet
-Install-Package CodeDead.UpdateManager.Extensions
+Install-Package CodeDead.UpdateManager.Extensions.Framework
 ```
 Command-line:
 ```CLI
-dotnet add package CodeDead.UpdateManager.Extensions
+dotnet add package CodeDead.UpdateManager.Extensions.Framework
 ```
 
 After the package has been added to your project, you can create a new *UpdateDialogManager* object using the default constructor:
