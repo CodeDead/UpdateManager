@@ -184,15 +184,12 @@ namespace CodeDead.UpdateManager
             PlatformUpdates updates = GetLatestVersions();
             Update latestUpdate = GetFinalUpdate(updates);
 
-            if (includePreRelease)
-            {
-                Update preRelease = GetFinalPreRelease(updates);
-                if (preRelease.UpdateAvailable(new Version(latestUpdate.MajorVersion, latestUpdate.MinorVersion,
-                    latestUpdate.BuildVersion, latestUpdate.RevisionVersion)))
-                    return preRelease;
-            }
-
-            return latestUpdate;
+            if (!includePreRelease) return latestUpdate;
+            Update preRelease = GetFinalPreRelease(updates);
+            return preRelease.UpdateAvailable(new Version(latestUpdate.MajorVersion, latestUpdate.MinorVersion,
+                latestUpdate.BuildVersion, latestUpdate.RevisionVersion))
+                ? preRelease
+                : latestUpdate;
         }
 
         /// <summary>
@@ -208,7 +205,17 @@ namespace CodeDead.UpdateManager
             PlatformUpdates updates = await GetLatestVersionsAsync();
             Update latestUpdate = null;
 
-            await Task.Run(() => { latestUpdate = GetFinalUpdate(updates); });
+            await Task.Run(() =>
+            {
+                latestUpdate = GetFinalUpdate(updates);
+                if (!includePreRelease) return;
+                Update preRelease = GetFinalPreRelease(updates);
+                if (preRelease.UpdateAvailable(new Version(latestUpdate.MajorVersion, latestUpdate.MinorVersion,
+                    latestUpdate.BuildVersion, latestUpdate.RevisionVersion)))
+                {
+                    latestUpdate = preRelease;
+                }
+            });
 
             return latestUpdate;
         }
@@ -235,6 +242,7 @@ namespace CodeDead.UpdateManager
                     latestUpdate = platformUpdate.Update;
                 }
             }
+
             return latestUpdate;
         }
 
@@ -260,6 +268,7 @@ namespace CodeDead.UpdateManager
                     latestUpdate = platformUpdate.PreRelease;
                 }
             }
+
             return latestUpdate;
         }
     }
